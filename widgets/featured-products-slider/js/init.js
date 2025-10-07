@@ -19,9 +19,12 @@
             // Settings
             this.autoplay = this.slider.data('autoplay') === true;
             this.autoplaySpeed = parseInt(this.slider.data('autoplay-speed')) || 3000;
-            this.currentSlide = 0;
+            // Move-by-one index instead of page-based index
+            this.currentIndex = 0;
             this.totalSlides = this.slides.length;
             this.slidesPerView = this.getSlidesPerView();
+            this.itemWidthPercent = 100 / this.slidesPerView;
+            this.maxIndex = Math.max(0, this.totalSlides - this.slidesPerView);
             this.autoplayInterval = null;
             
             // Initialize
@@ -46,11 +49,9 @@
         }
 
         createDots() {
-            if (this.totalSlides <= this.slidesPerView) return;
-            
-            const totalDots = Math.ceil(this.totalSlides / this.slidesPerView);
             this.dotsContainer.empty();
-            
+            if (this.totalSlides <= this.slidesPerView) return;
+            const totalDots = this.maxIndex + 1; // each dot represents one step
             for (let i = 0; i < totalDots; i++) {
                 const dot = $('<span class="msb-slider-dot"></span>');
                 if (i === 0) dot.addClass('active');
@@ -66,7 +67,7 @@
             // Dots navigation
             this.dotsContainer.on('click', '.msb-slider-dot', (e) => {
                 const dotIndex = $(e.target).index();
-                this.goToSlide(dotIndex);
+                this.goToIndex(dotIndex);
             });
             
             // Touch/swipe support
@@ -126,48 +127,47 @@
             const newSlidesPerView = this.getSlidesPerView();
             if (newSlidesPerView !== this.slidesPerView) {
                 this.slidesPerView = newSlidesPerView;
-                this.currentSlide = 0;
+                this.itemWidthPercent = 100 / this.slidesPerView;
+                this.maxIndex = Math.max(0, this.totalSlides - this.slidesPerView);
+                this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
                 this.createDots();
                 this.updateSlider();
             }
         }
 
         prevSlide() {
-            if (this.currentSlide > 0) {
-                this.currentSlide--;
-            } else {
-                this.currentSlide = Math.ceil(this.totalSlides / this.slidesPerView) - 1;
+            if (this.currentIndex > 0) {
+                this.currentIndex--;
+                this.updateSlider();
             }
-            this.updateSlider();
         }
 
         nextSlide() {
-            const maxSlide = Math.ceil(this.totalSlides / this.slidesPerView) - 1;
-            if (this.currentSlide < maxSlide) {
-                this.currentSlide++;
-            } else {
-                this.currentSlide = 0;
+            if (this.currentIndex < this.maxIndex) {
+                this.currentIndex++;
+                this.updateSlider();
             }
-            this.updateSlider();
         }
 
-        goToSlide(slideIndex) {
-            this.currentSlide = slideIndex;
+        goToIndex(stepIndex) {
+            this.currentIndex = Math.max(0, Math.min(this.maxIndex, stepIndex));
             this.updateSlider();
         }
 
         updateSlider() {
-            const translateX = -(this.currentSlide * 100);
+            const translateX = -(this.currentIndex * this.itemWidthPercent);
             this.wrapper.css('transform', `translateX(${translateX}%)`);
             
-            // Update navigation buttons
-            const maxSlide = Math.ceil(this.totalSlides / this.slidesPerView) - 1;
-            this.prevBtn.prop('disabled', this.currentSlide === 0);
-            this.nextBtn.prop('disabled', this.currentSlide === maxSlide);
+            // Update navigation buttons (disable at boundaries)
+            const atStart = this.currentIndex === 0;
+            const atEnd = this.currentIndex === this.maxIndex;
+            const noScroll = this.maxIndex === 0;
+            this.prevBtn.prop('disabled', noScroll || atStart);
+            this.nextBtn.prop('disabled', noScroll || atEnd);
             
             // Update dots
             this.dotsContainer.find('.msb-slider-dot').removeClass('active');
-            this.dotsContainer.find('.msb-slider-dot').eq(this.currentSlide).addClass('active');
+            this.dotsContainer.find('.msb-slider-dot').eq(this.currentIndex).addClass('active');
         }
 
         startAutoplay() {
