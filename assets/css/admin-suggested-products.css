@@ -1,0 +1,126 @@
+/* Admin Suggested Products Meta Box Styles */
+
+.msb-suggested-products-meta-box {
+    padding: 0;
+}
+
+.msb-suggested-products-meta-box p {
+    margin-bottom: 15px;
+}
+
+.msb-suggested-products-meta-box p:last-child {
+    margin-bottom: 0;
+}
+
+.msb-suggested-products-meta-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #23282d;
+}
+
+.msb-suggested-products-meta-box input[type="text"],
+.msb-suggested-products-meta-box input[type="url"],
+.msb-suggested-products-meta-box textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: border-color 0.3s ease;
+}
+
+.msb-suggested-products-meta-box input[type="text"]:focus,
+.msb-suggested-products-meta-box input[type="url"]:focus,
+.msb-suggested-products-meta-box textarea:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+.msb-suggested-products-meta-box textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.msb-suggested-products-meta-box .description {
+    font-style: italic;
+    color: #666;
+    font-size: 13px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    border-left: 3px solid #0073aa;
+}
+
+/* Meta box title styling */
+#msb_suggested_products .hndle {
+    background: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+}
+
+#msb_suggested_products .hndle span {
+    color: #23282d;
+    font-weight: 600;
+}
+
+/* Inside meta box content */
+#msb_suggested_products .inside {
+    margin: 0;
+    padding: 12px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 782px) {
+    .msb-suggested-products-meta-box input[type="text"],
+    .msb-suggested-products-meta-box input[type="url"],
+    .msb-suggested-products-meta-box textarea {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .msb-suggested-products-meta-box input[type="text"],
+    .msb-suggested-products-meta-box input[type="url"],
+    .msb-suggested-products-meta-box textarea {
+        border-width: 2px;
+    }
+}
+
+/* Focus styles for accessibility */
+.msb-suggested-products-meta-box input:focus,
+.msb-suggested-products-meta-box textarea:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+/* Placeholder styling */
+.msb-suggested-products-meta-box input::placeholder,
+.msb-suggested-products-meta-box textarea::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+/* Meta box positioning */
+#msb_suggested_products {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading state (if needed) */
+.msb-suggested-products-meta-box.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Success state (if needed) */
+.msb-suggested-products-meta-box.success {
+    border-left: 3px solid #46b450;
+}
+
+/* Error state (if needed) */
+.msb-suggested-products-meta-box.error {
+    border-left: 3px solid #dc3232;
+}
