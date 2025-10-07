@@ -169,3 +169,6 @@ add_filter('siteorigin_panels_widget_dialog_tabs', function ($tabs) {
 
 // Include WooCommerce customizations
 require_once get_template_directory() . '/msb-woocomerce-functions.php';
+
+// Include Suggested Products Meta Box
+require_once get_template_directory() . '/includes/class-suggested-products-meta-box.php';
