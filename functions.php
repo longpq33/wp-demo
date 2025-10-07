@@ -36,6 +36,38 @@ function msb_app_theme_assets() {
             filemtime($icon_box_css)
         );
     }
+
+    // Widget: FeaturedProductsSlider (WP Widget) styles
+    $featured_products_slider_css = get_template_directory() . '/widgets/featured-products-slider/css/featured-products-slider.css';
+    if (file_exists($featured_products_slider_css)) {
+        wp_enqueue_style(
+            'msb-featured-products-slider-wp',
+            get_template_directory_uri() . '/widgets/featured-products-slider/css/featured-products-slider.css',
+            array('msb-app-style'),
+            filemtime($featured_products_slider_css)
+        );
+    }
+
+    $featured_products_slider_js = get_template_directory() . '/widgets/featured-products-slider/js/init.js';
+    if (file_exists($featured_products_slider_js)) {
+        wp_enqueue_script(
+            'msb-featured-products-slider-wp',
+            get_template_directory_uri() . '/widgets/featured-products-slider/js/init.js',
+            array('msb-app-main'),
+            filemtime($featured_products_slider_js)
+        );
+    }
+
+    // Widget: Heading (WP Widget) styles
+    $heading_css = get_template_directory() . '/widgets/heading/css/heading.css';
+    if (file_exists($heading_css)) {
+        wp_enqueue_style(
+            'msb-heading-wp',
+            get_template_directory_uri() . '/widgets/heading/css/heading.css',
+            array('msb-app-style'),
+            filemtime($heading_css)
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'msb_app_theme_assets');
 

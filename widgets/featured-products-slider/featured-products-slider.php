@@ -11,7 +11,8 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
             'msb_featured_products_slider',
             __('Featured Products Slider', 'msb-app-theme'),
             array(
-                'description' => __('Hiển thị slider các sản phẩm nổi bật', 'msb-app-theme'),
+              'panels_groups' => array('msb'),
+                'description' => __('Products Featured Slider (MSB).', 'msb-app-theme'),
                 'classname' => 'msb-featured-products-slider-widget'
             )
         );
@@ -27,7 +28,7 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
 
         echo $args['before_widget'];
         
-        if ($title) {
+        if ($title) { 
             echo $args['before_title'] . apply_filters('widget_title', $title) . $args['after_title'];
         }
 
@@ -89,12 +90,6 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         <?php endif; ?>
-                                        
-                                        <div class="msb-product-actions">
-                                            <a href="<?php the_permalink(); ?>" class="msb-view-product">
-                                                <?php _e('Xem chi tiết', 'msb-app-theme'); ?>
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +110,7 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
                 </div>
                 
                 <!-- Dots indicator -->
-                <div class="msb-slider-dots"></div>
+                <!-- <div class="msb-slider-dots"></div> -->
             </div>
             <?php
         else :

@@ -28,7 +28,7 @@
 /* Responsive grid for multiple products per slide */
 @media (min-width: 768px) {
     .msb-slide {
-        width: 50%; /* 2 products per slide on tablet */
+        width: 25%; 
     }
 }
 
@@ -64,7 +64,7 @@
 .msb-product-image {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 300px;
     overflow: hidden;
 }
 
@@ -290,10 +290,10 @@
     font-size: 24px;
     font-weight: 700;
     color: #333;
-    text-align: center;
+    text-align: left;
     position: relative;
 }
-
+/* 
 .msb-featured-products-slider-widget .widget-title::after {
     content: '';
     position: absolute;
@@ -304,4 +304,4 @@
     height: 3px;
     background: #007cba;
     border-radius: 2px;
-}
+} */
