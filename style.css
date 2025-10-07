@@ -1,0 +1,29 @@
+/*
+Theme Name: MSB App Theme
+Theme URI: https://www.msb.com.vn
+Author: MSB Team
+Author URI: https://www.msb.com.vn
+Description: A modern, clean WordPress theme for MSB, built as a foundation for the Portal with best practices (performance, accessibility, and SEO).
+Version: 1.0.0
+Requires at least: 6.3
+Tested up to: 6.6
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: msb-app-theme
+Tags: headless-ready, blog, news, corporate, responsive, accessibility-ready
+*/
+
+/* Base reset and helpers (kept minimal; extend in assets/css/main.css) */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0 !important; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.5; color: #111827; background: #F9FAFB; }
+a { color: #1D4ED8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+
+.widget {
+  background-color:transparent;
+  border: none;
+}
+

@@ -1,0 +1,66 @@
+/* Basic layout */
+.container { 
+  /* max-width: 1200px;  */
+  margin: 0 auto; 
+  /* padding: 0 24px;  */
+}
+.site-header, .site-footer { background: #FFFFFF; border-bottom: 1px solid #E5E7EB; }
+.site-footer { border-top: 1px solid #E5E7EB; border-bottom: none; }
+.branding a { font-weight: 700; color: #111827; font-size: 1.25rem; }
+.site-description { color: #6B7280; margin: 4px 0 0; }
+
+/* Navigation */
+.primary-nav ul, .footer-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 16px; }
+.primary-nav a, .footer-nav a { color: #111827; text-decoration: none; padding: 8px 12px; border-radius: 6px; }
+.primary-nav a:hover, .footer-nav a:hover { background: #F3F4F6; }
+
+/* Posts */
+.entry { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; padding: 16px; margin: 16px 0; }
+.entry-title { margin: 0 0 12px; font-size: 1.5rem; }
+.entry-content { color: #374151; }
+
+/* Widgets */
+.widget { background: transparent; border: none; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.widget-title { font-size: 1rem; margin: 0 0 12px; color: #111827; }
+
+/* Pagination */
+.pagination { display: flex; justify-content: space-between; margin: 24px 0; }
+.nav-links a { color: #1D4ED8; }
+
+.fixed-bottom-navbar {
+  position: fixed;
+  bottom: 20px;
+  left: 2.5%;
+  width: 95%;
+  z-index: 9999;
+	background: rgb(253, 232, 223);
+	margin: 0px auto;
+  border-radius: 10px;
+}
+
+.fixed-menu-home {
+  position: fixed;
+  top: 40px;
+  left: 2.5%;
+  width: 95%;
+  z-index: 9999;
+	background: transparent;
+	margin: 0px auto;
+  border-radius: 10px;
+}
+
+.fixed-content-home {
+  position: fixed;
+  top: 30%;
+  left: 2.5%;
+  width: 95%;
+  z-index: 9999;
+	background: transparent;
+	margin: 0px auto;
+  border-radius: 10px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
