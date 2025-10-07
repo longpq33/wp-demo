@@ -68,6 +68,17 @@ function msb_app_theme_assets() {
             filemtime($heading_css)
         );
     }
+
+    // Widget: Latest Posts (WP Widget) styles
+    $latest_posts_css = get_template_directory() . '/widgets/latest-posts/css/latest-posts.css';
+    if (file_exists($latest_posts_css)) {
+        wp_enqueue_style(
+            'msb-latest-posts-wp',
+            get_template_directory_uri() . '/widgets/latest-posts/css/latest-posts.css',
+            array('msb-app-style'),
+            filemtime($latest_posts_css)
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'msb_app_theme_assets');
 
