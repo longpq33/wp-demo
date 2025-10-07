@@ -11,7 +11,7 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
             'msb_featured_products_slider',
             __('Featured Products Slider', 'msb-app-theme'),
             array(
-              'panels_groups' => array('msb'),
+                'panels_groups' => array('msb'),
                 'description' => __('Products Featured Slider (MSB).', 'msb-app-theme'),
                 'classname' => 'msb-featured-products-slider-widget'
             )
