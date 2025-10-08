@@ -32,13 +32,8 @@ class MSB_Posts_Slider_Widget extends WP_Widget {
         $posts = new WP_Query(array(
             'post_type' => 'post',
             'posts_per_page' => $number,
-            'meta_query' => array(
-                array(
-                    'key' => '_msb_posts_slide',
-                    'value' => 'yes',
-                    'compare' => '='
-                )
-            ),
+            'post_status' => 'publish',
+            'ignore_sticky_posts' => true,
         ));
 
         if ($posts->have_posts()) :
@@ -46,9 +41,7 @@ class MSB_Posts_Slider_Widget extends WP_Widget {
             <div class="msb-featured-products-slider">
                 <div class="msb-slider-container">
                     <div class="msb-slider-wrapper">
-                        <?php while ($posts->have_posts()) : $posts->the_post(); 
-                            global $product;
-                            ?>
+                        <?php while ($posts->have_posts()) : $posts->the_post(); ?>
                             <div class="msb-slide">
                                 <div class="msb-product-card">
                                     <div class="msb-product-image">
@@ -57,13 +50,10 @@ class MSB_Posts_Slider_Widget extends WP_Widget {
                                             if (has_post_thumbnail()) {
                                                 the_post_thumbnail('medium', array('class' => 'msb-product-thumbnail'));
                                             } else {
-                                                echo '<img src="' . wc_placeholder_img_src() . '" alt="' . get_the_title() . '" class="msb-product-thumbnail">';
+                                                echo '<div class="msb-product-thumbnail msb-thumb-fallback"></div>';
                                             }
                                             ?>
                                         </a>
-                                        <?php if ($product->is_on_sale()) : ?>
-                                            <span class="msb-sale-badge">Sale</span>
-                                        <?php endif; ?>
                                     </div>
                                     <div class="mark"></div>
                                     
@@ -72,9 +62,14 @@ class MSB_Posts_Slider_Widget extends WP_Widget {
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                         </h3>
                                         <?php if ($show_description) : ?>
-                                            <div class="msb-product-description">
-                                                <?php echo $product->get_description(); ?>
-                                            </div>
+                                            <?php
+                                            $raw_excerpt = get_the_excerpt();
+                                            if ($raw_excerpt === '') {
+                                                $raw_excerpt = wp_strip_all_tags(get_the_content(null, false, get_the_ID()));
+                                            }
+                                            $excerpt = wp_trim_words($raw_excerpt, 28, '…');
+                                            ?>
+                                            <div class="msb-product-description"><?php echo esc_html($excerpt); ?></div>
                                         <?php endif; ?>
                                     </div>
                                 </div>
