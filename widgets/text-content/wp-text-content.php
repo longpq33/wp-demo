@@ -28,7 +28,7 @@ class MSB_WP_Text_Content_Widget extends WP_Widget {
         ?>
             <style>
                 .msb-text-content-wrapper {
-                    width: 100%;
+                    width: 50%;
                     display: flex;
                     gap: 20px; /* khoảng cách giữa các box */
                     flex-wrap: nowrap ; /* nếu quá dài thì xuống hàng */

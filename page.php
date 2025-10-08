@@ -9,6 +9,7 @@
 
 <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
+  
     <main id="primary" class="site-main container">
         <?php if (have_posts()): ?>
             <?php while (have_posts()):

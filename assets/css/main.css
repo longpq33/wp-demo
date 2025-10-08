@@ -150,5 +150,9 @@
 }
 
 .panel-grid-cell {
-  width: 100%;
+  /* width: 100%; */
+}
+
+.so-panel {
+  margin-bottom: 0 !important;
 }

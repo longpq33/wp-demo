@@ -25,6 +25,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $show_rating = !empty($instance['show_rating']) ? 1 : 0;
         $autoplay = !empty($instance['autoplay']) ? 1 : 0;
         $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
+        $show_description = !empty($instance['show_description']) ? $instance['show_description'] : '';
 
         echo $args['before_widget'];
         
@@ -79,6 +80,11 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
                                         <h3 class="msb-product-title">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                         </h3>
+                                        <?php if ($show_description) : ?>
+                                            <div class="msb-product-description">
+                                                <?php echo $product->get_description(); ?>
+                                            </div>
+                                        <?php endif; ?>
                                         
                                         <?php if ($show_rating && $product->get_average_rating()) : ?>
                                             <div class="msb-product-rating">
@@ -134,13 +140,18 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Tiêu đề:', 'msb-app-theme'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>">
         </p>
+
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked($show_description); ?> id="<?php echo $this->get_field_id('show_description'); ?>" name="<?php echo $this->get_field_name('show_description'); ?>" />
+            <label for="<?php echo $this->get_field_id('show_description'); ?>"><?php _e('Hiển thị mô tả', 'msb-app-theme'); ?></label>
+        </p>
         
         <p>
             <label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Số sản phẩm hiển thị:', 'msb-app-theme'); ?></label>
             <input class="tiny-text" id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="number" step="1" min="1" value="<?php echo esc_attr($number); ?>" size="3">
         </p>
         
-        <p>
+        <!-- <p>
             <input class="checkbox" type="checkbox" <?php checked($show_price); ?> id="<?php echo $this->get_field_id('show_price'); ?>" name="<?php echo $this->get_field_name('show_price'); ?>" />
             <label for="<?php echo $this->get_field_id('show_price'); ?>"><?php _e('Hiển thị giá', 'msb-app-theme'); ?></label>
         </p>
@@ -153,12 +164,12 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         <p>
             <input class="checkbox" type="checkbox" <?php checked($autoplay); ?> id="<?php echo $this->get_field_id('autoplay'); ?>" name="<?php echo $this->get_field_name('autoplay'); ?>" />
             <label for="<?php echo $this->get_field_id('autoplay'); ?>"><?php _e('Tự động chạy', 'msb-app-theme'); ?></label>
-        </p>
+        </p> -->
         
-        <p>
+        <!-- <p>
             <label for="<?php echo $this->get_field_id('autoplay_speed'); ?>"><?php _e('Tốc độ tự động (ms):', 'msb-app-theme'); ?></label>
             <input class="tiny-text" id="<?php echo $this->get_field_id('autoplay_speed'); ?>" name="<?php echo $this->get_field_name('autoplay_speed'); ?>" type="number" step="100" min="1000" value="<?php echo esc_attr($autoplay_speed); ?>" size="5">
-        </p>
+        </p> -->
         <?php
     }
 
@@ -170,6 +181,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $instance['show_rating'] = !empty($new_instance['show_rating']) ? 1 : 0;
         $instance['autoplay'] = !empty($new_instance['autoplay']) ? 1 : 0;
         $instance['autoplay_speed'] = (!empty($new_instance['autoplay_speed'])) ? absint($new_instance['autoplay_speed']) : 3000;
+        $instance['show_description'] = !empty($new_instance['show_description']) ? 1 : 0;
         
         return $instance;
     }
