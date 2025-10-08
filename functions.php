@@ -89,6 +89,29 @@ function msb_app_theme_assets() {
             filemtime($latest_posts_css)
         );
     }
+
+    // Widget: Menu Select Box (WP Widget) styles and scripts
+    $menu_select_box_css = get_template_directory() . '/widgets/menu-select-box/css/menu-select-box.css';
+    if (file_exists($menu_select_box_css)) {
+        wp_enqueue_style(
+            'msb-menu-select-box-wp',
+            get_template_directory_uri() . '/widgets/menu-select-box/css/menu-select-box.css',
+            array('msb-app-style'),
+            filemtime($menu_select_box_css)
+        );
+        // Dashicons for icon choices
+        wp_enqueue_style('dashicons');
+    }
+    
+    $menu_select_box_js = get_template_directory() . '/widgets/menu-select-box/js/menu-select-box.js';
+    if (file_exists($menu_select_box_js)) {
+        wp_enqueue_script(
+            'msb-menu-select-box-wp',
+            get_template_directory_uri() . '/widgets/menu-select-box/js/menu-select-box.js',
+            array('jquery'),
+            filemtime($menu_select_box_js),
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'msb_app_theme_assets');
 
@@ -193,3 +216,37 @@ require_once get_template_directory() . '/msb-woocomerce-functions.php';
 
 // Include Suggested Products Meta Box
 require_once get_template_directory() . '/includes/class-suggested-products-meta-box.php';
+
+
+// function create_news_product_type() {
+//     $labels = array(
+//         'name'               => 'Sản phẩm',
+//         'singular_name'      => 'Sản phẩm',
+//         'menu_name'          => 'Sản phẩm',
+//         'name_admin_bar'     => 'Sản phẩm',
+//         'add_new'            => 'Thêm mới',
+//         'add_new_item'       => 'Thêm sản phẩm mới',
+//         'new_item'           => 'Sản phẩm mới',
+//         'edit_item'          => 'Chỉnh sửa sản phẩm',
+//         'view_item'          => 'Xem sản phẩm',
+//         'all_items'          => 'Tất cả sản phẩm',
+//         'search_items'       => 'Tìm sản phẩm',
+//         'not_found'          => 'Không tìm thấy sản phẩm.',
+//         'not_found_in_trash' => 'Không có sản phẩm nào trong thùng rác.'
+//     );
+
+//     $args = array(
+//         'labels'             => $labels,
+//         'public'             => true,               // hiển thị trên frontend
+//         'show_in_menu'       => true,               // hiển thị trong admin menu
+//         'menu_icon'          => 'dashicons-admin-post',
+//         'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
+//         'has_archive'        => true,
+//         'rewrite'            => array('slug' => 'san-pham'),
+//         'show_in_rest'       => true,               // bật Gutenberg và REST API
+//         'taxonomies'         => array('category', 'san_pham_tag'), // ✅ giống Posts
+//     );
+
+//     register_post_type('san_pham', $args);
+// }
+// add_action('init', 'create_news_product_type');

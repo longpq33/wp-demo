@@ -1,3 +1,11 @@
+/* Truncate product description to two lines */
+.msb-product-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* Featured Products Slider Widget Styles */
 
 .msb-featured-products-slider {
