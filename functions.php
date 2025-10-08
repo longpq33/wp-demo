@@ -37,6 +37,16 @@ function msb_app_theme_assets() {
         );
     }
 
+    $search_box_css = get_template_directory() . '/widgets/search/css/search.css';
+    if (file_exists($search_box_css)) {
+        wp_enqueue_style(
+            'msb-search-box-wp',
+            get_template_directory_uri() .  '/widgets/search/css/search.css',
+            array('msb-app-style'),
+            filemtime($search_box_css)
+        );
+    }
+
     // Widget: FeaturedProductsSlider (WP Widget) styles
     $featured_products_slider_css = get_template_directory() . '/widgets/featured-products-slider/css/featured-products-slider.css';
     if (file_exists($featured_products_slider_css)) {
