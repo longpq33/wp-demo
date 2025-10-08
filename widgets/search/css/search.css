@@ -1,0 +1,46 @@
+.msb-search-widget {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.msb-search-widget input.search-field {
+  width: 100%;
+  padding: 10px 20px 10px 45px; /* padding-left rộng để dành chỗ icon */
+  border-radius: 8px;
+  border: 2px solid transparent; /* viền mảnh trong suốt */
+  box-sizing: border-box;
+  background-color: #fff;
+  font-size: 15px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.msb-search-widget input.search-field:focus {
+  border-color: #ccc; /* viền khi focus */
+}
+
+.msb-search-widget button.search-submit {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  pointer-events: none; /* tránh button nhận sự kiện click, giúp submit khi enter */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msb-search-widget button.search-submit svg {
+  display: block;
+  stroke: #d80000;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
