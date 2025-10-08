@@ -29,8 +29,6 @@ class MSB_WP_Multi_Language_Widget extends WP_Widget
                 <select id="languageSelect">
                     <option value="vi" data-flag="https://flagcdn.com/24x18/vn.png">Tiếng Việt</option>
                     <option value="en" data-flag="https://flagcdn.com/24x18/gb.png">English</option>
-                    <option value="ja" data-flag="https://flagcdn.com/24x18/jp.png">日本語</option>
-                    <option value="ko" data-flag="https://flagcdn.com/24x18/kr.png">한국어</option>
                 </select>
             </div>
         </div>
@@ -74,7 +72,6 @@ class MSB_WP_Multi_Language_Widget extends WP_Widget
                     const combo = document.querySelector("select.goog-te-combo");
                     if (combo) {
                         clearInterval(comboInterval);
-                        console.log("✅ Google Translate combo loaded"); // ← Log bạn cần
 
                         // Lắng nghe khi user chọn ngôn ngữ
                         select.addEventListener("change", function () {

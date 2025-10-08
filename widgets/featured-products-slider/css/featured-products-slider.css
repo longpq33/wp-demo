@@ -1,3 +1,27 @@
+.msb-cat-filter {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:12px;
+}
+.msb-cat-chip {
+    padding:6px 12px;
+    border-radius:999px;
+    border:1px solid #d1d9e6;
+    background:#fff;
+    color:#111827;
+    cursor:pointer;
+    font-size:14px;
+}
+.msb-cat-chip:hover {
+    border-color:#007cba;
+    color:#0b2545;
+}
+.msb-cat-chip.active {
+    background:#fff7ed;
+    border-color:#fb923c;
+    color:#ea580c;
+}
 .msb-thumb-fallback {
     width: 100%;
     padding-top: 66%;

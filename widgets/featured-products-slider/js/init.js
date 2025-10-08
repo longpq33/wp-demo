@@ -11,7 +11,8 @@
         constructor(element) {
             this.slider = $(element);
             this.wrapper = this.slider.find('.msb-slider-wrapper');
-            this.slides = this.slider.find('.msb-slide');
+            this.allSlides = this.slider.find('.msb-slide');
+            this.slides = this.allSlides; // current working set (visible)
             this.prevBtn = this.slider.find('.msb-slider-prev');
             this.nextBtn = this.slider.find('.msb-slider-next');
             this.dotsContainer = this.slider.find('.msb-slider-dots');
@@ -79,6 +80,18 @@
             
             // Window resize
             $(window).on('resize', () => this.handleResize());
+
+            // Category filter (if exists)
+            const filterBar = this.slider.find('.msb-cat-filter');
+            if (filterBar.length) {
+                filterBar.on('click', '.msb-cat-chip', (e) => {
+                    const btn = $(e.currentTarget);
+                    filterBar.find('.msb-cat-chip').removeClass('active');
+                    btn.addClass('active');
+                    const term = btn.data('term');
+                    this.applyCategoryFilter(term);
+                });
+            }
         }
 
         addTouchSupport() {
@@ -168,6 +181,35 @@
             // Update dots
             this.dotsContainer.find('.msb-slider-dot').removeClass('active');
             this.dotsContainer.find('.msb-slider-dot').eq(this.currentIndex).addClass('active');
+        }
+
+        applyCategoryFilter(term) {
+            // Show/hide slides based on data-term-ids
+            if (term === undefined || term === null || term === '' || term === 'all') {
+                this.allSlides.show();
+            } else {
+                const termStr = String(term);
+                this.allSlides.each(function() {
+                    // IMPORTANT: Use attribute instead of jQuery .data() because of dash-case key
+                    const raw = this.getAttribute('data-term-ids') || '';
+                    const list = raw.split(',').map(s => s.trim()).filter(Boolean);
+                    if (list.includes(termStr)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            // Recompute caches
+            this.slides = this.slider.find('.msb-slide:visible');
+            this.totalSlides = this.slides.length;
+            this.slidesPerView = this.getSlidesPerView();
+            this.itemWidthPercent = 100 / this.slidesPerView;
+            this.maxIndex = Math.max(0, this.totalSlides - this.slidesPerView);
+            this.currentIndex = 0;
+            this.createDots();
+            this.updateSlider();
         }
 
         startAutoplay() {
