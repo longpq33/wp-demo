@@ -73,6 +73,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
                                             <span class="msb-sale-badge">Sale</span>
                                         <?php endif; ?>
                                     </div>
+                                    <div class="mark"></div>
                                     
                                     <div class="msb-product-info">
                                         <h3 class="msb-product-title">

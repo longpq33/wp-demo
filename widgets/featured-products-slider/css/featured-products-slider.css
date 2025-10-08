@@ -3,8 +3,6 @@
 .msb-featured-products-slider {
     position: relative;
     width: 100%;
-    overflow: hidden;
-    margin: 20px 0;
 }
 
 .msb-slider-container {
@@ -54,11 +52,38 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .msb-product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 12px 8px;
+    outline: rgb(255, 77, 0) solid 1.5px;
+}
+
+.mark {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.96) 75%,
+      #fff 100%
+    );
+    transition: height 220ms ease, background 220ms ease, opacity 220ms ease;
+    pointer-events: none;
+}
+
+.msb-product-card:hover .mark {
+    height: 60%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.96) 60%,
+      #fff 95%
+    );
 }
 
 .msb-product-image {
@@ -73,10 +98,6 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
-}
-
-.msb-product-card:hover .msb-product-thumbnail {
-    transform: scale(1.05);
 }
 
 .msb-sale-badge {
@@ -97,6 +118,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .msb-product-title {
