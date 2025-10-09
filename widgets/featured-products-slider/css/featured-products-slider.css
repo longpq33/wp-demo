@@ -251,7 +251,7 @@
 
 .msb-slider-prev:hover,
 .msb-slider-next:hover {
-    background: #007cba;
+    background: #e74c3c;
     color: white;
     transform: translateY(-50%) scale(1.1);
 }
