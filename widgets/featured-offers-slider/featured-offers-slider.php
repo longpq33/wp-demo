@@ -26,6 +26,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $autoplay = !empty($instance['autoplay']) ? 1 : 0;
         $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
         $show_description = !empty($instance['show_description']) ? $instance['show_description'] : '';
+        $show_categories = !empty($instance['show_categories']) ? 1 : 0;
 
         echo $args['before_widget'];
         
@@ -49,16 +50,45 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         ));
 
         if ($products->have_posts()) :
+            // Collect categories for chips
+            $all_term_ids = array();
+            $all_terms = array();
+            while ($products->have_posts()) { $products->the_post();
+                $terms = get_the_terms(get_the_ID(), 'product_cat');
+                if (!empty($terms) && !is_wp_error($terms)) {
+                    foreach ($terms as $t) {
+                        $all_term_ids[$t->term_id] = true;
+                        $all_terms[$t->term_id] = $t;
+                    }
+                }
+            }
+            // Rewind loop for rendering
+            $products->rewind_posts();
             ?>
             <div class="msb-featured-products-slider" 
                  data-autoplay="<?php echo $autoplay ? 'true' : 'false'; ?>"
                  data-autoplay-speed="<?php echo $autoplay_speed; ?>">
+                <?php if ($show_categories && !empty($all_terms)) : ?>
+                <div class="msb-cat-filter">
+                    <?php foreach ($all_terms as $term) : ?>
+                        <button type="button" class="msb-cat-chip" data-term="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html($term->name); ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
                 <div class="msb-slider-container">
                     <div class="msb-slider-wrapper">
                         <?php while ($products->have_posts()) : $products->the_post(); 
                             global $product;
                             ?>
-                            <div class="msb-slide">
+                            <?php 
+                                $terms = get_the_terms(get_the_ID(), 'product_cat');
+                                $term_ids = array();
+                                if (!empty($terms) && !is_wp_error($terms)) {
+                                    foreach ($terms as $t) { $term_ids[] = $t->term_id; }
+                                }
+                                $data_terms = !empty($term_ids) ? implode(',', array_map('intval', $term_ids)) : '';
+                            ?>
+                            <div class="msb-slide" data-term-ids="<?php echo esc_attr($data_terms); ?>">
                                 <div class="msb-product-card">
                                     <div class="msb-product-image">
                                         <a href="<?php the_permalink(); ?>">
@@ -135,6 +165,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $show_rating = !empty($instance['show_rating']) ? 1 : 0;
         $autoplay = !empty($instance['autoplay']) ? 1 : 0;
         $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
+        $show_categories = !empty($instance['show_categories']) ? 1 : 0;
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Tiêu đề:', 'msb-app-theme'); ?></label>
@@ -149,6 +180,11 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         <p>
             <label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Số sản phẩm hiển thị:', 'msb-app-theme'); ?></label>
             <input class="tiny-text" id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="number" step="1" min="1" value="<?php echo esc_attr($number); ?>" size="3">
+        </p>
+
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked($show_categories); ?> id="<?php echo $this->get_field_id('show_categories'); ?>" name="<?php echo $this->get_field_name('show_categories'); ?>" />
+            <label for="<?php echo $this->get_field_id('show_categories'); ?>"><?php _e('Hiển thị danh mục', 'msb-app-theme'); ?></label>
         </p>
         
         <!-- <p>
@@ -182,6 +218,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $instance['autoplay'] = !empty($new_instance['autoplay']) ? 1 : 0;
         $instance['autoplay_speed'] = (!empty($new_instance['autoplay_speed'])) ? absint($new_instance['autoplay_speed']) : 3000;
         $instance['show_description'] = !empty($new_instance['show_description']) ? 1 : 0;
+        $instance['show_categories'] = !empty($new_instance['show_categories']) ? 1 : 0;
         
         return $instance;
     }

@@ -3,18 +3,18 @@
  * Menu Select Box Widget
  */
 
-class MSB_Menu_Select_Box_Widget extends WP_Widget {
+  class MSB_Menu_Select_Box_Widget extends WP_Widget {
 
     public function __construct() {
-        parent::__construct(
-            'msb_menu_select_box',
-            __('Menu Select Box', 'msb-app-theme'),
+      parent::__construct(
+        'msb_menu_select_box',
+        __('Menu Select Box', 'msb-app-theme'),
             array(
                 'classname' => 'msb-menu-select-box-widget',
                 'description' => __('Dropdown input với modal chứa menu items', 'msb-app-theme'),
                 'panels_groups' => array('msb')
             )
-        );
+      );
     }
 
     public function widget($args, $instance) {

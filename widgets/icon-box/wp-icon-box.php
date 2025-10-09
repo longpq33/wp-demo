@@ -78,6 +78,7 @@ class MSB_WP_Icon_Box_Widget extends WP_Widget
                 $this->render_icon($icon_id, $icon_size);
             }
         }
+        
 
         echo '</' . $tag . '>';
         echo $args['after_widget'];
@@ -85,14 +86,17 @@ class MSB_WP_Icon_Box_Widget extends WP_Widget
 
     private function render_icon($icon_id, $icon_size)
     {
-        echo '<div class="msb-icon-box__icon" style="width:' . intval($icon_size) . 'px;height:' . intval($icon_size) . 'px;">';
-        if ($icon_id) {
-            $src = wp_get_attachment_image_url($icon_id, 'full');
-            if ($src) {
-                echo '<img src="' . esc_url($src) . '" alt="" width="' . intval($icon_size) . '" height="' . intval($icon_size) . '" />';
+        if(!empty($icon_id)) {
+            echo '<div class="msb-icon-box__icon" style="width:' . intval($icon_size) . 'px;height:' . intval($icon_size) . 'px;">';
+            if ($icon_id) {
+                $src = wp_get_attachment_image_url($icon_id, 'full');
+                if ($src) {
+                    echo '<img src="' . esc_url($src) . '" alt="" width="' . intval($icon_size) . '" height="' . intval($icon_size) . '" />';
+                }
             }
+            echo '</div>';
         }
-        echo '</div>';
+      
     }
 
     private function render_title($title)

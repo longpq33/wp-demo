@@ -13,7 +13,7 @@
 
 .msb-dropdown-input {
     width: 100%;
-    padding: 12px 40px 12px 16px;
+    padding: 6px 40px 6px 16px;
     border: 1px solid #ff4d00;
     color: #ff4d00;
     border-radius: 8px;
@@ -45,12 +45,12 @@
 }
 
 .msb-chevron-down svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   color: #ff4d00;
   stroke: #ff4d00;
   fill: #ff4d00;
-  margin-top: 5px;
+  margin-top: 7px;
 }
 
 /* Modal Overlay */

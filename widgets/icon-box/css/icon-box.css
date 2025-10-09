@@ -53,6 +53,7 @@
   font-weight: 400;
   font-size: 14px;
   transition: color 0.25s ease;
+  cursor: pointer;
 }
 
 /* Vị trí icon trái/phải */
