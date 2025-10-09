@@ -112,6 +112,17 @@ function msb_app_theme_assets() {
             filemtime($menu_select_box_js),
         );
     }
+
+    // Widget: MSB Button (WP Widget) styles
+    $msb_button_css = get_template_directory() . '/widgets/msb-button/css/msb-button.css';
+    if (file_exists($msb_button_css)) {
+        wp_enqueue_style(
+            'msb-button-wp',
+            get_template_directory_uri() . '/widgets/msb-button/css/msb-button.css',
+            array(),
+            filemtime($msb_button_css)
+        );
+    } 
 }
 add_action('wp_enqueue_scripts', 'msb_app_theme_assets');
 
@@ -250,3 +261,21 @@ require_once get_template_directory() . '/includes/class-suggested-products-meta
 //     register_post_type('san_pham', $args);
 // }
 // add_action('init', 'create_news_product_type');
+
+
+add_action( 'admin_menu', 'bbloomer_remove_payments_from_wp_sidebar_menu', 9999 );
+ 
+function bbloomer_remove_payments_from_wp_sidebar_menu() {   
+    if (!class_exists('WooCommerce')) {
+        return;
+    }
+    
+   remove_menu_page( 'admin.php?page=wc-settings&tab=checkout' );
+   remove_menu_page( 'admin.php?page=wc-admin&path=/wc-pay-welcome-page' ); 
+   remove_menu_page( 'admin.php?page=wc-admin&task=payments' ); 
+   remove_menu_page( 'admin.php?page=wc-admin&task=woocommerce-payments' );
+   remove_menu_page( 'admin.php?page=wc-settings&tab=checkout&from=PAYMENTS_MENU_ITEM' );
+   
+   remove_menu_page('woocommerce-marketing');
+}
+

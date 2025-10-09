@@ -20,7 +20,7 @@
 .entry-content { color: #374151; }
 
 /* Widgets */
-.widget { background: transparent; border: none; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.widget { background: transparent; border: none; border-radius: 8px; padding: 8px 16px; margin-bottom: 16px; }
 .widget-title { font-size: 1rem; margin: 0 0 12px; color: #111827; }
 
 /* Pagination */
@@ -93,7 +93,7 @@
 }
 
 .msb-page-footer .top-container .column img {
-  width: 100px;
+  width: 120px;
   height: 60px;
 }
 
