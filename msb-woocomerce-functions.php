@@ -109,3 +109,20 @@ add_action('manage_product_posts_custom_column', function ($column, $post_id) {
     }
 }, 10, 2);
 
+add_action( 'admin_menu', 'bbloomer_remove_payments_from_wp_sidebar_menu', 9999 );
+ 
+function bbloomer_remove_payments_from_wp_sidebar_menu() {   
+    if (!class_exists('WooCommerce')) {
+        return;
+    }
+    
+   remove_menu_page( 'admin.php?page=wc-settings&tab=checkout' );
+   remove_menu_page( 'admin.php?page=wc-admin&path=/wc-pay-welcome-page' ); 
+   remove_menu_page( 'admin.php?page=wc-admin&task=payments' ); 
+   remove_menu_page( 'admin.php?page=wc-admin&task=woocommerce-payments' );
+   remove_menu_page( 'admin.php?page=wc-settings&tab=checkout&from=PAYMENTS_MENU_ITEM' );
+   
+   remove_menu_page('woocommerce-marketing');
+}
+
+

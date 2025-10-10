@@ -1,0 +1,43 @@
+// Empty Box Widget LESS
+@primary-color: #1D4ED8;
+@text-color: #111827;
+@border-color: #E5E7EB;
+@spacing-sm: 8px;
+@spacing-md: 16px;
+@border-radius: 6px;
+@border-radius-md: 8px;
+
+.msb-empty-box-widget {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    
+    .widget-title {
+        display: none; // Hide widget title for empty box
+    }
+    
+    > div {
+        width: 100%;
+        display: block;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+    
+    // Optional: Add a subtle border for debugging (remove in production)
+    &.debug > div {
+        border: 1px dashed @border-color;
+        background: rgba(0, 0, 0, 0.02);
+    }
+    
+    // Responsive adjustments
+    @media (max-width: 768px) {
+        > div {
+            // Ensure mobile responsiveness
+            min-height: 0;
+        }
+    }
+}

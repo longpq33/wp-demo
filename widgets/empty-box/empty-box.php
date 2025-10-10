@@ -50,7 +50,7 @@ class MSB_Empty_Box_Widget extends WP_Widget {
             <label for="<?php echo $this->get_field_id('height'); ?>"><?php _e('Chiều cao:', 'msb-app-theme'); ?></label>
             <input class="tiny-text" id="<?php echo $this->get_field_id('height'); ?>" 
                    name="<?php echo $this->get_field_name('height'); ?>" 
-                   type="number" step="0.1" min="0" 
+                   type="number" step="1" min="0" 
                    value="<?php echo esc_attr($height); ?>" size="5">
         </p>
 
