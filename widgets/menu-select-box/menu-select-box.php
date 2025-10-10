@@ -21,11 +21,6 @@
         $placeholder = !empty($instance['placeholder']) ? $instance['placeholder'] : __('Chọn trang...', 'msb-app-theme');
         $modal_title = !empty($instance['modal_title']) ? $instance['modal_title'] : __('Đi đến trang', 'msb-app-theme');
         $menu_items = !empty($instance['menu_items']) ? $instance['menu_items'] : array();
-        
-        // Debug output
-        if (WP_DEBUG && current_user_can('manage_options')) {
-            echo '<!-- MSB Debug: menu_items = ' . print_r($menu_items, true) . ' -->';
-        }
 
         echo $args['before_widget'];
         ?>
@@ -40,12 +35,10 @@
                 <div class="msb-modal">
                     <div class="msb-modal-header">
                         <h3 class="msb-modal-title"><?php echo esc_html($modal_title); ?></h3>
-                        <!-- <button class="msb-modal-close" aria-label="<?php _e('Đóng', 'msb-app-theme'); ?>">×</button> -->
                     </div>
                     <div class="msb-modal-content">
                         <div class="msb-menu-grid">
                             <?php 
-                            // Debug: Check if menu_items exists and has content
                             if (!empty($menu_items) && is_array($menu_items)) : 
                                 foreach ($menu_items as $index => $item) : 
                                     if (!empty($item['text']) && !empty($item['url'])) : ?>
@@ -71,9 +64,6 @@
                             else : ?>
                                 <p class="msb-no-items">
                                     <?php _e('Chưa có menu items nào.', 'msb-app-theme'); ?>
-                                    <?php if (WP_DEBUG) : ?>
-                                        <br><small>Debug: menu_items = <?php var_dump($menu_items); ?></small>
-                                    <?php endif; ?>
                                 </p>
                             <?php endif; ?>
                         </div>
@@ -134,70 +124,8 @@
             </div>
             <button type="button" class="msb-add-item"><?php _e('Thêm Item', 'msb-app-theme'); ?></button>
         </div>
-        <script>
-        jQuery(document).ready(function($) {
-            var $wrap = $('#msb-menu-items-<?php echo esc_js($this->id); ?>');
-            if (!$wrap.length) return;
 
-            var $container = $wrap.find('.msb-items-container');
-            var baseName = $container.data('base-name');
-            var itemIndex = $container.find('.msb-item-row').length;
-
-            if (typeof wp !== 'undefined' && wp.media && typeof wp_enqueue_media === 'function') {
-                wp_enqueue_media();
-            }
-
-            $wrap.on('click', '.msb-add-item', function(e) {
-                e.preventDefault();
-                var html = ''
-                    + '<div class="msb-item-row">'
-                    +   '<div class="msb-media-control">'
-                    +     '<label><?php echo esc_js(__('Icon:', 'msb-app-theme')); ?></label>'
-                    +     '<div class="msb-media-preview" style="margin:6px 0;"></div>'
-                    +     '<input type="hidden" class="msb-media-id" name="' + baseName + '[' + itemIndex + '][icon]" value="">'
-                    +     '<button type="button" class="button msb-media-select"><?php echo esc_js(__('Chọn icon', 'msb-app-theme')); ?></button>'
-                    +     '<button type="button" class="button msb-media-remove" style="margin-left:6px; display:none;"><?php echo esc_js(__('Xóa', 'msb-app-theme')); ?></button>'
-                    +     '<p style="margin-top:6px; color:#666; font-size:12px;"><?php echo esc_js(__('Hoặc nhập class Dashicons vào ô Hidden qua Inspect nếu cần.', 'msb-app-theme')); ?></p>'
-                    +   '</div>'
-                    +   '<p><label><?php echo esc_js(__('Text:', 'msb-app-theme')); ?></label>'
-                    +   '<input type="text" name="' + baseName + '[' + itemIndex + '][text]" placeholder="<?php echo esc_js(__('Trang chủ', 'msb-app-theme')); ?>"></p>'
-                    +   '<p><label><?php echo esc_js(__('URL:', 'msb-app-theme')); ?></label>'
-                    +   '<input type="url" name="' + baseName + '[' + itemIndex + '][url]" placeholder="https://example.com"></p>'
-                    +   '<button type="button" class="msb-remove-item"><?php echo esc_js(__('Xóa', 'msb-app-theme')); ?></button>'
-                    + '</div>';
-                $container.append(html);
-                itemIndex++;
-            });
-
-            // Media select handlers (delegated)
-            $wrap.on('click', '.msb-media-select', function(e) {
-                e.preventDefault();
-                var $row = $(this).closest('.msb-item-row');
-                var frame = wp.media({ title: '<?php echo esc_js(__('Chọn icon', 'msb-app-theme')); ?>', multiple: false, library: { type: 'image' } });
-                frame.on('select', function() {
-                    var attachment = frame.state().get('selection').first().toJSON();
-                    $row.find('.msb-media-id').val(attachment.id);
-                    var imgUrl = (attachment.sizes && attachment.sizes.thumbnail) ? attachment.sizes.thumbnail.url : attachment.url;
-                    $row.find('.msb-media-preview').html('<img src="' + imgUrl + '" style="max-width:48px;max-height:48px;" />');
-                    $row.find('.msb-media-remove').show();
-                });
-                frame.open();
-            });
-
-            $wrap.on('click', '.msb-media-remove', function(e) {
-                e.preventDefault();
-                var $row = $(this).closest('.msb-item-row');
-                $row.find('.msb-media-id').val('');
-                $row.find('.msb-media-preview').empty();
-                $(this).hide();
-            });
-
-            $wrap.on('click', '.msb-remove-item', function(e) {
-                e.preventDefault();
-                $(this).closest('.msb-item-row').remove();
-            });
-        });
-        </script>
+        <?php // JS đã tách sang widgets/menu-select-box/js/menu-select-box-admin.js ?>
         <?php
     }
 
@@ -205,11 +133,6 @@
         $instance = array();
         $instance['placeholder'] = sanitize_text_field($new_instance['placeholder']);
         $instance['modal_title'] = sanitize_text_field($new_instance['modal_title']);
-        
-        // Debug: Log what we're receiving
-        if (WP_DEBUG && current_user_can('manage_options')) {
-            error_log('MSB Debug - new_instance: ' . print_r($new_instance, true));
-        }
         
         // Sanitize menu items
         $menu_items = array();
@@ -226,11 +149,6 @@
         }
         $instance['menu_items'] = $menu_items;
         
-        // Debug: Log what we're saving
-        if (WP_DEBUG && current_user_can('manage_options')) {
-            error_log('MSB Debug - saving menu_items: ' . print_r($menu_items, true));
-        }
-        
         return $instance;
     }
 }
@@ -240,3 +158,18 @@ function msb_register_menu_select_box_widget() {
     register_widget('MSB_Menu_Select_Box_Widget');
 }
 add_action('widgets_init', 'msb_register_menu_select_box_widget');
+
+// Enqueue admin JS for widget form
+add_action('admin_enqueue_scripts', function($hook){
+    if ($hook !== 'widgets.php' && $hook !== 'customize.php') return;
+    if (function_exists('wp_enqueue_media')) {
+        wp_enqueue_media();
+    }
+    wp_enqueue_script(
+        'msb-menu-select-box-admin',
+        get_template_directory_uri() . '/widgets/menu-select-box/js/menu-select-box-admin.js',
+        array('jquery'),
+        filemtime(get_template_directory() . '/widgets/menu-select-box/js/menu-select-box-admin.js'),
+        true
+    );
+});

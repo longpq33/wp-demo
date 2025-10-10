@@ -1,6 +1,6 @@
 <?php
-// Register Testimonials post type (WooCommerce-like setup)
-function msb_register_testimonials_cpt() {
+// Register Testimonials post type
+function msb_register_testimonials_type() {
     $labels = array(
         'name'                  => __('Testimonials', 'msb-app-theme'),
         'singular_name'         => __('Testimonial', 'msb-app-theme'),
@@ -37,7 +37,7 @@ function msb_register_testimonials_cpt() {
 
     register_post_type('testimonials', $args);
 }
-add_action('init', 'msb_register_testimonials_cpt');
+add_action('init', 'msb_register_testimonials_type');
 
 // Register hierarchical taxonomy (like product_cat)
 function msb_register_testimonial_category() {

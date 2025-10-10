@@ -66,6 +66,16 @@ function msb_app_asset(string $relative): string {
     return esc_url($url);
 }
 
+add_filter('siteorigin_panels_inline_css', '__return_true');
+add_filter('siteorigin_panels_inline_css_nested_layouts', '__return_true');
+
+add_filter('siteorigin_panels_settings', function ($s) {
+    $s['inline_css'] = true;
+    $s['inline_css_global'] = true;      // in CSS ra <head> cho mọi layout
+    $s['row_styles'] = array('layout'=>true,'design'=>true,'attributes'=>true);
+    return $s;
+}, 10);
+
 // Load widgets custom functions
 require_once get_template_directory() . '/widgets/widgets-function.php';
 

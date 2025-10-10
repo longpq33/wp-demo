@@ -22,8 +22,10 @@
             <?php endif; ?>
             <?php if (!is_front_page() && !is_home() && !is_page('home-1')): ?>
                 <?php get_template_part('template/page-footer'); ?>
+               
             <?php endif; ?>
     </main>
+    <?php wp_footer(); ?>
 </body>
 
 </html>
