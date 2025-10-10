@@ -1,6 +1,5 @@
 /**
  * Menu Select Box JavaScript
- * Modal toggle và navigation functionality
  */
 
 (function($) {

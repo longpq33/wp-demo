@@ -17,9 +17,6 @@ class MSB_Latest_Posts_Widget extends WP_Widget {
 	}
 
 	public function widget($args, $instance) {
-		$title = !empty($instance['title']) ? $instance['title'] : __('', 'msb-app-theme');
-    $subtitle = !empty($instance['subtitle']) ? $instance['subtitle'] : __('', 'msb-app-theme');
-    $description = !empty($instance['description']) ? $instance['description'] : __('', 'msb-app-theme');
 		$count = !empty($instance['count']) ? min(6, max(1, absint($instance['count']))) : 3;
 		$show_date = isset($instance['show_date']) ? (bool)$instance['show_date'] : true;
 		$excerpt_words = !empty($instance['excerpt_words']) ? absint($instance['excerpt_words']) : 28;
@@ -27,15 +24,7 @@ class MSB_Latest_Posts_Widget extends WP_Widget {
 		$category = !empty($instance['category']) ? absint($instance['category']) : 0;
 
 		echo $args['before_widget'];
-		if (!empty($title)) {
-			echo '<div class="lp-sg-title">' . esc_html($title) . '</div>';
-		}
-    if (!empty($subtitle)) {
-      echo '<div class="lp-sg-subtitle">' . esc_html($subtitle) . '</div>';
-    }
-    if (!empty($description)) {
-      echo '<div class="lp-sg-description">' . esc_html($description) . '</div>';
-    }
+
 
 		$q_args = array(
 			'post_type' => 'post',
@@ -55,7 +44,6 @@ class MSB_Latest_Posts_Widget extends WP_Widget {
 				$s_desc = get_post_meta($post_id, '_suggested_product_description', true);
 				$s_link = get_post_meta($post_id, '_suggested_product_link', true);
 				echo '<article class="lp-card">';
-					// image
 					echo '<a class="lp-thumb" href="' . esc_url(get_permalink()) . '">';
 						if (has_post_thumbnail()) {
 							echo get_the_post_thumbnail($post_id, 'large', array('class' => 'lp-thumb-img'));
@@ -91,7 +79,7 @@ class MSB_Latest_Posts_Widget extends WP_Widget {
 								echo '</div>';
 							echo '</div>';
 						}
-					echo '</div>'; // lp-body
+					echo '</div>'; 
 
 				echo '</article>';
 			}
@@ -103,31 +91,12 @@ class MSB_Latest_Posts_Widget extends WP_Widget {
 	}
 
 	public function form($instance) {
-		$title = isset($instance['title']) ? $instance['title'] : __('', 'msb-app-theme');
-    $subtitle = isset($instance['subtitle']) ? $instance['subtitle'] : __('', 'msb-app-theme');
-    $description = isset($instance['description']) ? $instance['description'] : __('', 'msb-app-theme');
 		$count = isset($instance['count']) ? absint($instance['count']) : 3;
 		$show_date = isset($instance['show_date']) ? (bool)$instance['show_date'] : true;
 		$excerpt_words = isset($instance['excerpt_words']) ? absint($instance['excerpt_words']) : 28;
 		$cta_label = isset($instance['cta_label']) ? $instance['cta_label'] : __('Tìm hiểu', 'msb-app-theme');
 		$category = isset($instance['category']) ? absint($instance['category']) : 0;
 ?>
-	<p>
-		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Tiêu đề:', 'msb-app-theme'); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-	</p>
-  <p>
-		<label for="<?php echo $this->get_field_id('subtitle'); ?>"><?php _e('Tiêu đề phụ:', 'msb-app-theme'); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id('subtitle'); ?>" name="<?php echo $this->get_field_name('subtitle'); ?>" type="text" value="<?php echo esc_attr($subtitle); ?>">
-	</p>
-  <p>
-		<label for="<?php echo $this->get_field_id('description'); ?>"><?php _e('Mô tả:', 'msb-app-theme'); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>" type="text" value="<?php echo esc_attr($description); ?>">
-	</p>
-	<!-- <p>
-		<label for="<?php echo $this->get_field_id('count'); ?>"><?php _e('Số bài hiển thị:', 'msb-app-theme'); ?></label>
-		<input class="tiny-text" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="number" step="1" min="1" max="6" value="<?php echo esc_attr($count); ?>" size="3">
-	</p> -->
 	<p>
 		<input class="checkbox" type="checkbox" <?php checked($show_date); ?> id="<?php echo $this->get_field_id('show_date'); ?>" name="<?php echo $this->get_field_name('show_date'); ?>" />
 		<label for="<?php echo $this->get_field_id('show_date'); ?>"><?php _e('Hiển thị ngày đăng', 'msb-app-theme'); ?></label>
@@ -158,9 +127,6 @@ class MSB_Latest_Posts_Widget extends WP_Widget {
 
 	public function update($new_instance, $old_instance) {
 		$instance = array();
-		$instance['title'] = sanitize_text_field($new_instance['title'] ?? '');
-    $instance['subtitle'] = sanitize_text_field($new_instance['subtitle'] ?? '');
-    $instance['description'] = sanitize_text_field($new_instance['description'] ?? '');
 		$instance['count'] = absint($new_instance['count'] ?? 3);
 		$instance['show_date'] = !empty($new_instance['show_date']) ? 1 : 0;
 		$instance['excerpt_words'] = absint($new_instance['excerpt_words'] ?? 28);

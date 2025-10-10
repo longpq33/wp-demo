@@ -1,7 +1,6 @@
 <?php
 /**
  * Featured Products Slider Widget
- * Hiển thị slider các sản phẩm nổi bật
  */
 
 class MSB_Featured_Products_Slider_Widget extends WP_Widget {
@@ -19,28 +18,16 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
     }
 
     public function widget($args, $instance) {
-        $title = !empty($instance['title']) ? $instance['title'] : __('Sản phẩm nổi bật', 'msb-app-theme');
         $number = !empty($instance['number']) ? absint($instance['number']) : 6;
-        $show_price = !empty($instance['show_price']) ? 1 : 0;
-        $show_rating = !empty($instance['show_rating']) ? 1 : 0;
-        $autoplay = !empty($instance['autoplay']) ? 1 : 0;
-        $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
         $show_description = !empty($instance['show_description']) ? $instance['show_description'] : '';
-        $category = !empty($instance['category']) ? absint($instance['category']) : 0; // product_cat term id
-        $order = !empty($instance['order']) && in_array( strtoupper($instance['order']), array('ASC','DESC'), true ) ? strtoupper($instance['order']) : 'DESC';
+        $category = !empty($instance['category']) ? absint($instance['category']) : 0; 
 
         echo $args['before_widget'];
-        
-        if ($title) { 
-            echo $args['before_title'] . apply_filters('widget_title', $title) . $args['after_title'];
-        }
 
-        // Query sản phẩm nổi bật
         $q_args = array(
             'post_type' => 'product',
             'posts_per_page' => $number,
             'orderby' => 'date',
-            'order' => $order,
             'meta_query' => array(
                 array(
                     'key' => '_msb_featured',
@@ -99,18 +86,6 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
                                                 <?php echo $product->get_description(); ?>
                                             </div>
                                         <?php endif; ?>
-                                        
-                                        <?php if ($show_rating && $product->get_average_rating()) : ?>
-                                            <div class="msb-product-rating">
-                                                <?php echo wc_get_rating_html($product->get_average_rating()); ?>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($show_price) : ?>
-                                            <div class="msb-product-price">
-                                                <?php echo $product->get_price_html(); ?>
-                                            </div>
-                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -129,9 +104,6 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
                         </svg>
                     </button>
                 </div>
-                
-                <!-- Dots indicator -->
-                <!-- <div class="msb-slider-dots"></div> -->
             </div>
             <?php
         else :
@@ -143,7 +115,6 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
     }
 
     public function form($instance) {
-        $title = !empty($instance['title']) ? $instance['title'] : '';
         $number = !empty($instance['number']) ? absint($instance['number']) : 6;
         $show_price = !empty($instance['show_price']) ? 1 : 0;
         $show_rating = !empty($instance['show_rating']) ? 1 : 0;
@@ -153,18 +124,6 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
         $category = !empty($instance['category']) ? absint($instance['category']) : 0;
         $order = !empty($instance['order']) ? strtoupper($instance['order']) : 'DESC';
         ?>
-        <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Tiêu đề:', 'msb-app-theme'); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-        </p>
-
-		<!-- <p>
-			<label for="<?php echo $this->get_field_id('order'); ?>"><?php _e('Sắp xếp theo thời gian tạo:', 'msb-app-theme'); ?></label>
-			<select class="widefat" id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>">
-				<option value="DESC" <?php selected($order, 'DESC'); ?>><?php _e('Mới nhất trước (DESC)', 'msb-app-theme'); ?></option>
-				<option value="ASC" <?php selected($order, 'ASC'); ?>><?php _e('Cũ nhất trước (ASC)', 'msb-app-theme'); ?></option>
-			</select>
-		</p> -->
 
 		<p>
 			<label for="<?php echo $this->get_field_id('category'); ?>"><?php _e('Danh mục sản phẩm:', 'msb-app-theme'); ?></label>
@@ -190,40 +149,14 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
             <input class="checkbox" type="checkbox" <?php checked($show_description); ?> id="<?php echo $this->get_field_id('show_description'); ?>" name="<?php echo $this->get_field_name('show_description'); ?>" />
             <label for="<?php echo $this->get_field_id('show_description'); ?>"><?php _e('Hiển thị mô tả', 'msb-app-theme'); ?></label>
         </p>
-        
-        <!-- <p>
-            <input class="checkbox" type="checkbox" <?php checked($show_price); ?> id="<?php echo $this->get_field_id('show_price'); ?>" name="<?php echo $this->get_field_name('show_price'); ?>" />
-            <label for="<?php echo $this->get_field_id('show_price'); ?>"><?php _e('Hiển thị giá', 'msb-app-theme'); ?></label>
-        </p>
-        
-        <p>
-            <input class="checkbox" type="checkbox" <?php checked($show_rating); ?> id="<?php echo $this->get_field_id('show_rating'); ?>" name="<?php echo $this->get_field_name('show_rating'); ?>" />
-            <label for="<?php echo $this->get_field_id('show_rating'); ?>"><?php _e('Hiển thị đánh giá', 'msb-app-theme'); ?></label>
-        </p>
-        
-        <p>
-            <input class="checkbox" type="checkbox" <?php checked($autoplay); ?> id="<?php echo $this->get_field_id('autoplay'); ?>" name="<?php echo $this->get_field_name('autoplay'); ?>" />
-            <label for="<?php echo $this->get_field_id('autoplay'); ?>"><?php _e('Tự động chạy', 'msb-app-theme'); ?></label>
-        </p> -->
-        
-        <!-- <p>
-            <label for="<?php echo $this->get_field_id('autoplay_speed'); ?>"><?php _e('Tốc độ tự động (ms):', 'msb-app-theme'); ?></label>
-            <input class="tiny-text" id="<?php echo $this->get_field_id('autoplay_speed'); ?>" name="<?php echo $this->get_field_name('autoplay_speed'); ?>" type="number" step="100" min="1000" value="<?php echo esc_attr($autoplay_speed); ?>" size="5">
-        </p> -->
         <?php
     }
 
     public function update($new_instance, $old_instance) {
         $instance = array();
-        $instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : '';
         $instance['number'] = (!empty($new_instance['number'])) ? absint($new_instance['number']) : 6;
-        $instance['show_price'] = !empty($new_instance['show_price']) ? 1 : 0;
-        $instance['show_rating'] = !empty($new_instance['show_rating']) ? 1 : 0;
-        $instance['autoplay'] = !empty($new_instance['autoplay']) ? 1 : 0;
-        $instance['autoplay_speed'] = (!empty($new_instance['autoplay_speed'])) ? absint($new_instance['autoplay_speed']) : 3000;
         $instance['show_description'] = !empty($new_instance['show_description']) ? 1 : 0;
         $instance['category'] = absint($new_instance['category'] ?? 0);
-        $instance['order'] = in_array(strtoupper($new_instance['order'] ?? 'DESC'), array('ASC','DESC'), true) ? strtoupper($new_instance['order']) : 'DESC';
         
         return $instance;
     }

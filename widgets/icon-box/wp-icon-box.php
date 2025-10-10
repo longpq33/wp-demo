@@ -227,13 +227,10 @@ class MSB_WP_Icon_Box_Widget extends WP_Widget
         <script type="text/javascript">
             (function ($) {
                 $(function () {
-                    // ✅ Khởi tạo color picker cho tất cả input có class .msb-color-picker
                     $('.msb-color-picker').wpColorPicker();
 
-                    // ✅ Lấy wrapper icon box theo ID widget hiện tại
                     var $wrap = $('#<?php echo esc_js($this->get_field_id('icon')); ?>').closest('.msb-media-control');
 
-                    // ✅ Nút chọn icon
                     $wrap.find('.msb-media-select').off('click').on('click', function (e) {
                         e.preventDefault();
 
@@ -255,7 +252,6 @@ class MSB_WP_Icon_Box_Widget extends WP_Widget
                         frame.open();
                     });
 
-                    // ✅ Nút xóa icon
                     $wrap.find('.msb-media-remove').off('click').on('click', function (e) {
                         e.preventDefault();
                         $wrap.find('.msb-media-id').val('');
