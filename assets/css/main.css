@@ -20,7 +20,7 @@
 .entry-content { color: #374151; }
 
 /* Widgets */
-.widget { background: transparent; border: none; border-radius: 8px; padding: 8px 16px; margin-bottom: 16px; }
+.widget { border: none; border-radius: 8px; padding: 8px 16px; margin-bottom: 16px; }
 .widget-title { font-size: 1rem; margin: 0 0 12px; color: #111827; }
 
 /* Pagination */
@@ -36,6 +36,7 @@
 	background: rgb(253, 232, 223);
 	margin: 0px auto;
   border-radius: 10px;
+  padding: 0 40px;
 }
 
 .fixed-menu-home {
@@ -93,8 +94,8 @@
 }
 
 .msb-page-footer .top-container .column img {
-  width: 120px;
-  height: 60px;
+  width: 140px;
+  height: 55px;
 }
 
 .msb-page-footer .top-container .column .icon-social {
@@ -147,10 +148,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.panel-grid-cell {
-  /* width: 100%; */
 }
 
 .so-panel {

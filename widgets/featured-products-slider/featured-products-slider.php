@@ -26,6 +26,8 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
         $autoplay = !empty($instance['autoplay']) ? 1 : 0;
         $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
         $show_description = !empty($instance['show_description']) ? $instance['show_description'] : '';
+        $category = !empty($instance['category']) ? absint($instance['category']) : 0; // product_cat term id
+        $order = !empty($instance['order']) && in_array( strtoupper($instance['order']), array('ASC','DESC'), true ) ? strtoupper($instance['order']) : 'DESC';
 
         echo $args['before_widget'];
         
@@ -34,9 +36,11 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
         }
 
         // Query sản phẩm nổi bật
-        $products = new WP_Query(array(
+        $q_args = array(
             'post_type' => 'product',
             'posts_per_page' => $number,
+            'orderby' => 'date',
+            'order' => $order,
             'meta_query' => array(
                 array(
                     'key' => '_msb_featured',
@@ -46,7 +50,17 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
             ),
             'meta_key' => '_stock_status',
             'meta_value' => 'instock'
-        ));
+        );
+        if ($category) {
+            $q_args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => array($category),
+                )
+            );
+        }
+        $products = new WP_Query($q_args);
 
         if ($products->have_posts()) :
             ?>
@@ -136,11 +150,36 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
         $autoplay = !empty($instance['autoplay']) ? 1 : 0;
         $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
         $show_description = !empty($instance['show_description']) ? 1 : 0;
+        $category = !empty($instance['category']) ? absint($instance['category']) : 0;
+        $order = !empty($instance['order']) ? strtoupper($instance['order']) : 'DESC';
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Tiêu đề:', 'msb-app-theme'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>">
         </p>
+
+		<!-- <p>
+			<label for="<?php echo $this->get_field_id('order'); ?>"><?php _e('Sắp xếp theo thời gian tạo:', 'msb-app-theme'); ?></label>
+			<select class="widefat" id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>">
+				<option value="DESC" <?php selected($order, 'DESC'); ?>><?php _e('Mới nhất trước (DESC)', 'msb-app-theme'); ?></option>
+				<option value="ASC" <?php selected($order, 'ASC'); ?>><?php _e('Cũ nhất trước (ASC)', 'msb-app-theme'); ?></option>
+			</select>
+		</p> -->
+
+		<p>
+			<label for="<?php echo $this->get_field_id('category'); ?>"><?php _e('Danh mục sản phẩm:', 'msb-app-theme'); ?></label>
+			<?php
+				wp_dropdown_categories(array(
+					'show_option_all' => __('Tất cả', 'msb-app-theme'),
+					'name' => $this->get_field_name('category'),
+					'id' => $this->get_field_id('category'),
+					'class' => 'widefat',
+					'selected' => $category,
+					'hide_empty' => false,
+					'taxonomy' => 'product_cat',
+				));
+			?>
+		</p>
         
         <p>
             <label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Số sản phẩm hiển thị:', 'msb-app-theme'); ?></label>
@@ -183,6 +222,8 @@ class MSB_Featured_Products_Slider_Widget extends WP_Widget {
         $instance['autoplay'] = !empty($new_instance['autoplay']) ? 1 : 0;
         $instance['autoplay_speed'] = (!empty($new_instance['autoplay_speed'])) ? absint($new_instance['autoplay_speed']) : 3000;
         $instance['show_description'] = !empty($new_instance['show_description']) ? 1 : 0;
+        $instance['category'] = absint($new_instance['category'] ?? 0);
+        $instance['order'] = in_array(strtoupper($new_instance['order'] ?? 'DESC'), array('ASC','DESC'), true) ? strtoupper($new_instance['order']) : 'DESC';
         
         return $instance;
     }

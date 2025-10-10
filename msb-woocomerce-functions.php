@@ -1,7 +1,6 @@
 <?php
 // WooCommerce customizations: Featured product checkbox, REST meta, and admin list column
 
-// Meta box: Sản phẩm nổi bật
 add_action('add_meta_boxes', function () {
     if (!post_type_exists('product')) { return; }
     add_meta_box(
@@ -57,7 +56,6 @@ add_action('manage_product_posts_custom_column', function ($column, $post_id) {
 }, 10, 2);
 
 
-// Meta box: Ưu đãi nổi bật (checkbox giống Sản phẩm nổi bật)
 add_action('add_meta_boxes', function () {
     if (!post_type_exists('product')) { return; }
     add_meta_box(
@@ -100,7 +98,6 @@ add_action('init', function () {
     }
 });
 
-// Admin list column: Ưu đãi nổi bật
 add_filter('manage_edit-product_columns', function ($columns) {
     $columns['msb_featured_offer'] = __('Ưu đãi nổi bật', 'msb-app-theme');
     return $columns;
@@ -111,4 +108,21 @@ add_action('manage_product_posts_custom_column', function ($column, $post_id) {
         echo get_post_meta($post_id, '_msb_featured_offer', true) === 'yes' ? '✔' : '—';
     }
 }, 10, 2);
+
+add_action( 'admin_menu', 'bbloomer_remove_payments_from_wp_sidebar_menu', 9999 );
+ 
+function bbloomer_remove_payments_from_wp_sidebar_menu() {   
+    if (!class_exists('WooCommerce')) {
+        return;
+    }
+    
+   remove_menu_page( 'admin.php?page=wc-settings&tab=checkout' );
+   remove_menu_page( 'admin.php?page=wc-admin&path=/wc-pay-welcome-page' ); 
+   remove_menu_page( 'admin.php?page=wc-admin&task=payments' ); 
+   remove_menu_page( 'admin.php?page=wc-admin&task=woocommerce-payments' );
+   remove_menu_page( 'admin.php?page=wc-settings&tab=checkout&from=PAYMENTS_MENU_ITEM' );
+   
+   remove_menu_page('woocommerce-marketing');
+}
+
 

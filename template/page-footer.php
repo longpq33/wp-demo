@@ -9,7 +9,7 @@
         <h3 class="text-white">Liên hệ</h3>
         <p class="text-white">ATM và chi nhánh</p>
         <div class="row">
-          <div class="icon-social">
+          <!-- <div class="icon-social">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/facebook.svg" alt="icon-facebook" />
           </div>
           <div class="icon-social">
@@ -20,7 +20,7 @@
           </div>
           <div class="icon-social">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo.png" alt="icon-zalo" />  
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="column">

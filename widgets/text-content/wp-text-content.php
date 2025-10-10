@@ -8,13 +8,12 @@ class MSB_WP_Text_Content_Widget extends WP_Widget {
     public function __construct() {
         parent::__construct(
             'msb_wp_text_content_widget',
-            __('MSB Text Content Box', 'msb-app-theme'),
+            __('Testimonial Box', 'msb-app-theme'),
             [
-                'description'   => __('Hiển thị dữ liệu từ DB dạng danh sách', 'msb-app-theme'),
+                'description'   => __('Testimonial (MSB)', 'msb-app-theme'),
                 'panels_groups' => array('msb'),
                 'panels_title'  => __('Search Box', 'msb-app-theme'),
             ]
-            //array('description' => __('Hiển thị dữ liệu từ DB dạng danh sách', 'text_domain'))
         );
     }
 
@@ -30,12 +29,12 @@ class MSB_WP_Text_Content_Widget extends WP_Widget {
                 .msb-text-content-wrapper {
                     width: 50%;
                     display: flex;
-                    gap: 20px; /* khoảng cách giữa các box */
-                    flex-wrap: nowrap ; /* nếu quá dài thì xuống hàng */
+                    gap: 20px;
+                    flex-wrap: nowrap ;
                 }
 
                 .msb-text-content-box {
-                    flex: 1 1 30%; /* mỗi box chiếm ~30% chiều ngang, co giãn */
+                    flex: 1 1 30%; 
                     border: none;
                     padding: 0px;
                     background: 'transparent';

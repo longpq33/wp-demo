@@ -1,7 +1,6 @@
 <?php
 /**
  * Suggested Products Meta Box Class
- * Meta box để quản lý sản phẩm gợi ý cho bài post
  */
 
 class MSB_Suggested_Products_Meta_Box {
@@ -12,9 +11,6 @@ class MSB_Suggested_Products_Meta_Box {
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
     }
 
-    /**
-     * Thêm meta box vào admin
-     */
     public function add_meta_box() {
         add_meta_box(
             'msb_suggested_products',
@@ -26,9 +22,6 @@ class MSB_Suggested_Products_Meta_Box {
         );
     }
 
-    /**
-     * Callback function để hiển thị meta box
-     */
     public function meta_box_callback($post) {
         // Add nonce field for security
         wp_nonce_field('msb_suggested_products_nonce', 'msb_suggested_products_nonce');
@@ -81,9 +74,6 @@ class MSB_Suggested_Products_Meta_Box {
         <?php
     }
 
-    /**
-     * Lưu dữ liệu meta box
-     */
     public function save_meta_box($post_id) {
         // Check if nonce is set
         if (!isset($_POST['msb_suggested_products_nonce'])) {

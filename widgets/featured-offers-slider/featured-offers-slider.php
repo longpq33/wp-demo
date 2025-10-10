@@ -27,6 +27,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
         $show_description = !empty($instance['show_description']) ? $instance['show_description'] : '';
         $show_categories = !empty($instance['show_categories']) ? 1 : 0;
+        $category = !empty($instance['category']) ? absint($instance['category']) : 0; // product_cat term id
 
         echo $args['before_widget'];
         
@@ -35,7 +36,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         }
 
         // Query sản phẩm nổi bật
-        $products = new WP_Query(array(
+        $q_args = array(
             'post_type' => 'product',
             'posts_per_page' => $number,
             'meta_query' => array(
@@ -47,7 +48,17 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
             ),
             'meta_key' => '_stock_status',
             'meta_value' => 'instock'
-        ));
+        );
+        if ($category) {
+            $q_args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => array($category),
+                )
+            );
+        }
+        $products = new WP_Query($q_args);
 
         if ($products->have_posts()) :
             // Collect categories for chips
@@ -70,9 +81,15 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
                  data-autoplay-speed="<?php echo $autoplay_speed; ?>">
                 <?php if ($show_categories && !empty($all_terms)) : ?>
                 <div class="msb-cat-filter">
-                    <?php foreach ($all_terms as $term) : ?>
-                        <button type="button" class="msb-cat-chip" data-term="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html($term->name); ?></button>
-                    <?php endforeach; ?>
+					<?php foreach ($all_terms as $term) : 
+						$term_name_lc = function_exists('mb_strtolower') ? mb_strtolower($term->name) : strtolower($term->name);
+						$term_slug = $term->slug;
+						if (in_array($term_name_lc, array('cá nhân','ca nhan','doanh nghiệp','doanh nghiep'), true) || in_array($term_slug, array('ca-nhan','doanh-nghiep'), true)) {
+							continue;
+						}
+					?>
+						<button type="button" class="msb-cat-chip" data-term="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html($term->name); ?></button>
+					<?php endforeach; ?>
                 </div>
                 <?php endif; ?>
                 <div class="msb-slider-container">
@@ -166,6 +183,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $autoplay = !empty($instance['autoplay']) ? 1 : 0;
         $autoplay_speed = !empty($instance['autoplay_speed']) ? absint($instance['autoplay_speed']) : 3000;
         $show_categories = !empty($instance['show_categories']) ? 1 : 0;
+        $category = !empty($instance['category']) ? absint($instance['category']) : 0;
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Tiêu đề:', 'msb-app-theme'); ?></label>
@@ -180,6 +198,21 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         <p>
             <label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Số sản phẩm hiển thị:', 'msb-app-theme'); ?></label>
             <input class="tiny-text" id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="number" step="1" min="1" value="<?php echo esc_attr($number); ?>" size="3">
+        </p>
+
+        <p>
+            <label for="<?php echo $this->get_field_id('category'); ?>"><?php _e('Danh mục sản phẩm:', 'msb-app-theme'); ?></label>
+            <?php
+                wp_dropdown_categories(array(
+                    'show_option_all' => __('Tất cả', 'msb-app-theme'),
+                    'name' => $this->get_field_name('category'),
+                    'id' => $this->get_field_id('category'),
+                    'class' => 'widefat',
+                    'selected' => $category,
+                    'hide_empty' => false,
+                    'taxonomy' => 'product_cat',
+                ));
+            ?>
         </p>
 
         <p>
@@ -219,6 +252,7 @@ class MSB_Featured_Offer_Products_Slider_Widget extends WP_Widget {
         $instance['autoplay_speed'] = (!empty($new_instance['autoplay_speed'])) ? absint($new_instance['autoplay_speed']) : 3000;
         $instance['show_description'] = !empty($new_instance['show_description']) ? 1 : 0;
         $instance['show_categories'] = !empty($new_instance['show_categories']) ? 1 : 0;
+        $instance['category'] = absint($new_instance['category'] ?? 0);
         
         return $instance;
     }

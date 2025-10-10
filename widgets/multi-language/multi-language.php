@@ -105,14 +105,4 @@ function register_custom_multi_language_widget()
 }
 add_action('widgets_init', 'register_custom_multi_language_widget');
 
-function load_custom_language_widget_style()
-{
-    wp_enqueue_style(
-        'custom-language-widget-style',
-        get_stylesheet_directory_uri() . '/widgets/multi-language/css/multi-language.css',
-        [],
-        filemtime(get_stylesheet_directory() . '/widgets/multi-language/css/multi-language.css')
-    );
-}
-add_action('wp_enqueue_scripts', 'load_custom_language_widget_style');
 
