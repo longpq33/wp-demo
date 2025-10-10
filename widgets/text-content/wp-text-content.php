@@ -8,9 +8,9 @@ class MSB_WP_Text_Content_Widget extends WP_Widget {
     public function __construct() {
         parent::__construct(
             'msb_wp_text_content_widget',
-            __('Testimonial Box', 'msb-app-theme'),
+            __('Text content', 'msb-app-theme'),
             [
-                'description'   => __('Testimonial (MSB)', 'msb-app-theme'),
+                'description'   => __('Text content (MSB)', 'msb-app-theme'),
                 'panels_groups' => array('msb'),
                 'panels_title'  => __('Search Box', 'msb-app-theme'),
             ]

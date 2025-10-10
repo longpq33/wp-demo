@@ -73,7 +73,7 @@ require_once get_template_directory() . '/widgets/widgets-function.php';
 require_once get_template_directory() . '/api/v1/posts.php';
 
 // Include WooCommerce customizations
-require_once get_template_directory() . '/msb-woocomerce-functions.php';
+require_once get_template_directory() . '/woocomerces/msb-woocomerce-functions.php';
 
 // Include Suggested Products Meta Box
 require_once get_template_directory() . '/includes/class-suggested-products-meta-box.php';

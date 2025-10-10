@@ -4,7 +4,7 @@
  * Professional LESS compilation with full feature support
  */
 
-require_once dirname(__DIR__) . '/lessc.inc.php';
+require_once dirname(__DIR__) . '/includes/lessc.inc.php';
 
 class MSB_Widgets_LESS_Compiler_Pro {
     
