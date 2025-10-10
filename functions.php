@@ -122,6 +122,17 @@ function msb_app_theme_assets() {
             array(),
             filemtime($msb_button_css)
         );
+    }
+
+    // Widget: Empty Box (WP Widget) styles
+    $empty_box_css = get_template_directory() . '/widgets/empty-box/css/empty-box.css';
+    if (file_exists($empty_box_css)) {
+        wp_enqueue_style(
+            'msb-empty-box-wp',
+            get_template_directory_uri() . '/widgets/empty-box/css/empty-box.css',
+            array('msb-app-style'),
+            filemtime($empty_box_css)
+        );
     } 
 }
 add_action('wp_enqueue_scripts', 'msb_app_theme_assets');

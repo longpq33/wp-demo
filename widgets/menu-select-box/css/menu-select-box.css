@@ -16,7 +16,7 @@
     padding: 6px 40px 6px 16px;
     border: 1px solid #ff4d00;
     color: #ff4d00;
-    border-radius: 8px;
+    border-radius: 30px;
     font-size: 16px;
     background: #fff;
     cursor: pointer;
@@ -45,12 +45,13 @@
 }
 
 .msb-chevron-down svg {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   color: #ff4d00;
   stroke: #ff4d00;
   fill: #ff4d00;
   margin-top: 7px;
+  margin-right: 5px;
 }
 
 /* Modal Overlay */

@@ -1,7 +1,6 @@
 <?php
 // WooCommerce customizations: Featured product checkbox, REST meta, and admin list column
 
-// Meta box: Sản phẩm nổi bật
 add_action('add_meta_boxes', function () {
     if (!post_type_exists('product')) { return; }
     add_meta_box(
@@ -57,7 +56,6 @@ add_action('manage_product_posts_custom_column', function ($column, $post_id) {
 }, 10, 2);
 
 
-// Meta box: Ưu đãi nổi bật (checkbox giống Sản phẩm nổi bật)
 add_action('add_meta_boxes', function () {
     if (!post_type_exists('product')) { return; }
     add_meta_box(
@@ -100,7 +98,6 @@ add_action('init', function () {
     }
 });
 
-// Admin list column: Ưu đãi nổi bật
 add_filter('manage_edit-product_columns', function ($columns) {
     $columns['msb_featured_offer'] = __('Ưu đãi nổi bật', 'msb-app-theme');
     return $columns;
