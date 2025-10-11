@@ -7,10 +7,10 @@ class MSB_Latest_Posts_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			' msb_latest_posts',
-			__('Latest Posts(MSB)', 'msb-app-theme'),
+			__('Latest Posts', 'msb-app-theme'),
 			array(
 				'classname' => 'msb-latest-posts-widget',
-				'description' => __('Hiển thị 3 bài post mới nhất', 'msb-app-theme'),
+				'description' => __('Latest Posts (MSB).', 'msb-app-theme'),
 				'panels_groups' => array('msb')
 			)
 		);

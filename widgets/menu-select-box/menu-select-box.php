@@ -11,7 +11,7 @@
         __('Menu Select Box', 'msb-app-theme'),
             array(
                 'classname' => 'msb-menu-select-box-widget',
-                'description' => __('Dropdown input với modal chứa menu items', 'msb-app-theme'),
+                'description' => __('Menu Select Box (MSB).', 'msb-app-theme'),
                 'panels_groups' => array('msb')
             )
       );

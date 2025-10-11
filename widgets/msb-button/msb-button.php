@@ -9,10 +9,10 @@ class MSB_Button_Widget extends WP_Widget {
     public function __construct() {
         parent::__construct(
             'msb_button',
-            __('MSB Button', 'msb-app-theme'),
+            __('Button', 'msb-app-theme'),
             array(
                 'classname' => 'msb-button-widget',
-                'description' => __('Customizable button with colors, alignment, and size options', 'msb-app-theme'),
+                'description' => __('Button (MSB).', 'msb-app-theme'),
                 'panels_groups' => array('msb')
             )
         );

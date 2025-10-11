@@ -11,7 +11,7 @@ class MSB_Empty_Box_Widget extends WP_Widget {
             __('Empty Box', 'msb-app-theme'),
             array(
                 'panels_groups' => array('msb'),
-                'description' => __('Tạo khoảng trống với chiều cao tùy chỉnh (MSB).', 'msb-app-theme'),
+                'description' => __('Empty Box (MSB).', 'msb-app-theme'),
                 'classname' => 'msb-empty-box-widget'
             )
         );
