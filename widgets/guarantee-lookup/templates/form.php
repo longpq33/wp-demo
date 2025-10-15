@@ -71,6 +71,8 @@ function msb_guarantee_lookup_form($instance, $widget) {
         <input class="widefat msb-color-field" name="<?php echo esc_attr($field_n('button_color')); ?>" type="text" value="<?php echo esc_attr($button_color); ?>">
     </p>
     
+    <div id="msb-result" style="margin-top: 20px;"></div>
+    
     <script type="text/javascript">
         (function ($) {
             $(function () {
