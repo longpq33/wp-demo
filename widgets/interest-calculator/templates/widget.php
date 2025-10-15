@@ -26,6 +26,7 @@ function msb_interest_calculator_widget($args, $instance) {
             'packagesByType' => $packages_by_type,
             'rates' => $rates,
             'buttonUrl' => esc_url($button['url'] ?? ''),
+            'termsByType' => isset($json['termsByType']) ? $json['termsByType'] : array(),
         ));
     }
 
