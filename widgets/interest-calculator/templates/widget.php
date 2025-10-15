@@ -58,7 +58,7 @@ function msb_interest_calculator_widget($args, $instance) {
     echo '    <div class="msb-ic-row"><span>' . esc_html__('Tiền lãi','msb-app-theme') . '</span><span class="msb-ic-interest">— VND</span></div>';
     echo '    <div class="msb-ic-row"><span>' . esc_html__('Lãi suất','msb-app-theme') . '</span><span class="msb-ic-rate">— %</span></div>';
     echo '    <div class="row">';
-    echo '    <div class="msb-ic-updated">' . esc_html__('Lãi suất cập nhật','msb-app-theme') . '</div>';
+    echo '    <div class="msb-ic-updated">' . esc_html__('Lãi suất cập nhật lúc 10:10 20/11/2025','msb-app-theme') . '</div>';
     echo '    <a class="msb-ic-cta" href="' . esc_url($button['url']) . '"' . $button_style . '>' . esc_html($button['label']) . '</a>';
     echo '    </div>';
     echo '  </div>';
