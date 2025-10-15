@@ -1,0 +1,90 @@
+.msb-saving-rates {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  .msb-sr-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .msb-sr-buckets label {
+    margin-right: 12px;
+    font-weight: 600;
+    position: relative;
+  }
+  .msb-sr-buckets input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #333; 
+    border-radius: 50%;
+    display: inline-grid;
+    place-content: center;
+    background: #fff;
+    margin-right: 6px;
+    outline: none;
+  }
+
+  /* Change radio appearance and label color when checked */
+  .msb-sr-buckets input[type="radio"]:checked {
+    border-color: #f97316;
+  }
+  .msb-sr-buckets label:has(input[type="radio"]:checked) {
+    color: #f97316;
+    span {
+      color: #222;
+    }
+  }
+
+  .msb-sr-buckets input[type="radio"]::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 120ms ease-in-out;
+    background: #f97316;
+  }
+  .msb-sr-buckets input[type="radio"]:checked::before {
+    transform: scale(1);
+  }
+  /* Keep label color unchanged; remove color switching */
+  .msb-sr-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .msb-sr-table thead {
+    background: #0b2545;
+    color: #fff;
+    border-radius: 20px;
+  }
+  .msb-sr-table th,
+  .msb-sr-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+  }
+  .msb-sr-table tbody tr:nth-child(odd) {
+    background: #f9fafb;
+  }
+  .msb-sr-table-wrap {
+    overflow-x: auto;
+  }
+  .msb-sr-table th {
+    &:first-child {
+      border-top-left-radius: 10px;
+    }
+    &:last-child {
+      border-top-right-radius: 10px;
+    }
+  }
+
+  .msb-sr-package-select{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+  }  
+}
