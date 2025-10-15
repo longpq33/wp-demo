@@ -19,7 +19,6 @@ function msb_icon_box_widget($args, $instance, $widget) {
     $classes = 'msb-icon-box align-' . esc_attr($align) . ' icon-pos-' . esc_attr($icon_pos);
     $style = 'color:' . esc_attr($text_color) . '; font-size:14px;';
 
-    // ✅ Lấy dữ liệu hover
     $widget_id = esc_attr($widget->id);
     $hover_text_color = esc_attr($instance['hover_text_color'] ?? '#000000');
     $hover_bg_color = esc_attr($instance['hover_bg_color'] ?? '#0b2545');
@@ -41,7 +40,6 @@ function msb_icon_box_widget($args, $instance, $widget) {
 
     echo '<' . $tag . ' id="' . $widget_id . '" class="' . $classes . ' ' . $hover_bg_class . '" style="' . esc_attr($style) . '"' . $attrs . '>';
 
-    // ✅ Render HTML theo vị trí icon
     if (in_array($icon_pos, ['left', 'right'])) {
         echo '<div class="msb-icon-box__inner">';
         if ($icon_pos === 'left') {
