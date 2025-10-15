@@ -23,7 +23,7 @@ function msb_guarantee_lookup_widget($args, $instance) {
         echo '<h3 class="msb-form-title">' . esc_html($form_title) . '</h3>';
     }
 
-    echo '<form class="msb-lookup-form" method="post" action="' . esc_url($button_url ?: '#') . '">';
+    echo '<form class="msb-lookup-form" action="' . esc_url($button_url ?: '#') . '">';
     
     echo '<div class="msb-field-group">';
     if ($ref_label !== '') {
@@ -59,9 +59,10 @@ function msb_guarantee_lookup_widget($args, $instance) {
 
     if ($button_label !== '') {
         $style = $button_color !== '' ? ' style="background-color:' . esc_attr($button_color) . '"' : '';
-        echo '<button type="submit" class="msb-lookup-btn"' . $style . '>' . esc_html($button_label) . '</button>';
+        echo '<div class="block-button"><button type="submit" id = "msb-lookup-btn" class="msb-lookup-btn"' . $style . '>' . esc_html($button_label) . '</button></div>';
     }
 
+    echo '<div id="msb-result" style="margin-top: 20px;"></div>';
     echo '</form>';
     echo '</div>';
 

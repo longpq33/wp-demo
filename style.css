@@ -1,5 +1,5 @@
 /*
-Theme Name: MSB Theme
+Theme Name: wp-demo
 Theme URI: #
 Author: Fis R&D Da Nang
 Author URI: #
@@ -15,14 +15,36 @@ Tags: headless-ready, blog, news, corporate, responsive, accessibility-ready
 */
 
 /* Base reset and helpers (kept minimal; extend in assets/css/main.css) */
-html { box-sizing: border-box; }
-*, *::before, *::after { box-sizing: inherit; }
-body { margin: 0 !important; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.5; color: #111827; background: #F9FAFB; }
-a { color: #1D4ED8; text-decoration: none; }
-a:hover { text-decoration: underline; }
-img { max-width: 100%; height: auto; display: block; }
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0 !important;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
+  color: #111827;
+  background: #f9fafb;
+}
+a {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 .widget {
-  background-color:transparent;
+  background-color: transparent;
   border: none;
 }
