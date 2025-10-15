@@ -96,4 +96,103 @@ function msb_app_theme_assets() {
 }
 add_action('wp_enqueue_scripts', 'msb_app_theme_assets');
 
+
+// Guarantee submit handler fake data
+add_action('wp_ajax_msb_guarantee_lookup', 'msb_handle_guarantee_lookup');
+add_action('wp_ajax_nopriv_msb_guarantee_lookup', 'msb_handle_guarantee_lookup');
+function msb_handle_guarantee_lookup() {
+    $ref_number = isset($_POST['ref_number']) ? sanitize_text_field($_POST['ref_number']) : '';
+    $amount = isset($_POST['amount']) ? sanitize_text_field($_POST['amount']) : '';
+
+    if (!preg_match('/^[A-Za-z0-9]{1,10}$/', $ref_number)) {
+        wp_send_json_error('Số chứng thư không hợp lệ.', 400);
+        wp_die();
+    }
+
+    if (!ctype_digit($amount)) {
+        wp_send_json_error('Số tiền không hợp lệ.', 400);
+        wp_die();
+    }
+
+    try {
+        $json_path = get_template_directory() . '/widgets/guarantee-lookup/data.json';
+        $json_content = file_get_contents($json_path);
+        $data = json_decode($json_content, true);
+        
+    error_log(print_r($data, true)); 
+    } catch (Exception $e) {
+         error_log('msb_handle_guarantee_lookup exception: ' . $e->getMessage());
+            wp_send_json_error('Server exception', 500);
+        wp_die();
+    }
+
+    $matched = null;
+    foreach ($data as $item) {
+        if ($item['ref'] === $ref_number && $item['amount'] === $amount) {
+            $matched = $item;
+            break;
+        }
+    }
+
+    if (! $matched) 
+        {
+            wp_send_json_error('Không tìm thấy thông tin bảo lãnh', 404);
+            wp_die();
+        }
+
+    if ($matched) {
+        ob_start();
+        echo '<div class="msb-result-block">';
+        echo '<h4>Kết quả bảo lãnh</h4>';
+        echo '<table class="msb-result-table">';
+        foreach ($matched as $field => $value) {
+            $label = msb_field_label($field);
+            echo '<tr>';
+            echo '<td><strong>' . esc_html($label) . '</strong></td>';
+            echo '<td>' . esc_html($value) . '</td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+        echo '</div>';
+        $html = ob_get_clean();
+
+        wp_send_json_success($html);
+        wp_die();
+    } 
+}
+
+function msb_field_label($field) {
+    $labels = [
+        'ref' => 'Mã bảo lãnh',
+        'guarantee_type' => 'Loại bảo lãnh',
+        'guaranteed_party' => 'Bên được bảo lãnh',
+        'beneficiary_info' => 'Thông tin thụ hưởng',
+        'purpose' => 'Mục đích bảo lãnh',
+        'amount' => 'Số tiền bảo lãnh',
+        'currency' => 'Loại tiền tệ',
+        'issue_date' => 'Ngày phát hành',
+        'effective_date' => 'Ngày bắt đầu hiệu lực',
+        'expiry_date' => 'Ngày hết hạn',
+        'branch' => 'Chi nhánh'
+    ];
+
+    return $labels[$field] ?? ucfirst($field);
+}
+
+function msb_enqueue_guarantee_scripts() {
+    wp_enqueue_script(
+        'msb-guarantee-lookup',
+        get_template_directory_uri() . '/widgets/guarantee-lookup/guarantee-lookup.js',
+        array(),
+        filemtime(get_template_directory() . '/widgets/guarantee-lookup/guarantee-lookup.js'),
+        true
+    );
+
+    wp_localize_script('msb-guarantee-lookup', 'msb_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+    ));
+}
+add_action('wp_enqueue_scripts', 'msb_enqueue_guarantee_scripts');
+
+
 ?>
