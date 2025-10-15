@@ -1,0 +1,87 @@
+.msb-interest-calculator {
+  display: flex;
+  gap: 24px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+
+  .msb-ic-left {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    label {
+      font-weight: 600;
+      color: #111827;
+    }
+    input,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
+    .msb-ic-amount-hint {
+      color: #6b7280;
+      font-size: 12px;
+      margin-top: -6px;
+    }
+  }
+
+  .msb-ic-right {
+    flex: 1 1 50%;
+    background: #fff5e9;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .msb-ic-total {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      justify-content: space-between;
+    }
+    .msb-ic-total-label {
+      color: #111827;
+      font-weight: 700;
+    }
+    .msb-ic-total-value {
+      color: #ff6a2a;
+      font-size: 32px;
+      font-weight: 800;
+    }
+    .msb-ic-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      color: #111827;
+    }
+    .msb-ic-cta {
+      margin-top: 8px;
+      background: #f97316;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+    .msb-ic-cta.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .msb-interest-calculator {
+    flex-direction: column;
+  }
+}
