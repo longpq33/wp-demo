@@ -9,9 +9,9 @@ class MSB_WP_Search_Widget extends WP_Widget {
     public function __construct() {
         parent::__construct(
             'msb_wp_search_widget',
-            __('MSB Search Box', 'msb-app-theme'),
+            __('Search Box', 'msb-app-theme'),
             [
-                'description'   => __('Thanh tìm kiếm tuỳ chỉnh (MSB Style).', 'msb-app-theme'),
+                'description'   => __('Search Box (MSB).', 'msb-app-theme'),
                 'panels_groups' => array('msb'),
                 'panels_title'  => __('Search Box', 'msb-app-theme'),
             ]

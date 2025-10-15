@@ -32,7 +32,7 @@ add_action('widgets_init', 'msb_autoload_wp_widgets', 1);
 // Add a custom tab "Msb widget" to the SiteOrigin widget picker
 add_filter('siteorigin_panels_widget_dialog_tabs', function ($tabs) {
   $tabs[] = array(
-      'title'  => __('Msb widget', 'msb-app-theme'),
+      'title'  => __('MSB Widgets', 'msb-app-theme'),
       'filter' => array(
           'groups' => array('msb'),
       ),
