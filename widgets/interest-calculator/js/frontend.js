@@ -81,6 +81,43 @@
     });
   }
 
+  function fillCurrencies($container) {
+    var currencies = ['AUD', 'EUR', 'CAD', 'JPY', 'GBP', 'SGD', 'USD'];
+    var currencyNames = {
+      'AUD': 'Australian Dollar',
+      'EUR': 'Euro',
+      'CAD': 'Canadian Dollar',
+      'JPY': 'Japanese Yen',
+      'GBP': 'British Pound',
+      'SGD': 'Singapore Dollar',
+      'USD': 'US Dollar'
+    };
+    var $currency = $container.find('.msb-ic-currency');
+    $currency.empty();
+    currencies.forEach(function (code) {
+      $currency.append('<option value="' + code + '">' + code + ' - ' + currencyNames[code] + '</option>');
+    });
+  }
+
+  function toggleForeignCurrencyFields($container, isForeign) {
+    var $packageLabel = $container.find('.msb-ic-package-label');
+    var $package = $container.find('.msb-ic-package');
+    var $currencyLabel = $container.find('.msb-ic-currency-label');
+    var $currency = $container.find('.msb-ic-currency');
+    
+    if (isForeign) {
+      $packageLabel.hide();
+      $package.hide();
+      $currencyLabel.show();
+      $currency.show();
+    } else {
+      $packageLabel.show();
+      $package.show();
+      $currencyLabel.hide();
+      $currency.hide();
+    }
+  }
+
   function fillTerms($container, type){
     var list = (MSBInterestData.termsByType||{})[type]||[];
     var $term = $container.find('.msb-ic-term');
@@ -100,10 +137,17 @@
   function calc($container) {
     var amount = parseMoney($container.find('.msb-ic-amount').val());
     var type = $container.find('.msb-ic-type').val();
-    var pkg = $container.find('.msb-ic-package').val();
     var term = $container.find('.msb-ic-term').val();
     var rates = MSBInterestData.rates || {};
-    var rate = (((rates[type] || {})[pkg] || {})[term]) || null;
+    var rate = null;
+
+    if (type === 'foreign') {
+      var currency = $container.find('.msb-ic-currency').val();
+      rate = (((rates[type] || {})[currency] || {})[term]) || null;
+    } else {
+      var pkg = $container.find('.msb-ic-package').val();
+      rate = (((rates[type] || {})[pkg] || {})[term]) || null;
+    }
 
     if (rate == null) {
       $container.find('.msb-ic-rate').text('— %');
@@ -135,7 +179,18 @@
     $('.msb-interest-calculator').each(function () {
       var $root = $(this);
       var initType = $root.find('.msb-ic-type').val();
-      fillPackages($root, initType);
+      
+      // Initialize currency dropdown
+      fillCurrencies($root);
+      
+      // Initialize based on type
+      if (initType === 'foreign') {
+        toggleForeignCurrencyFields($root, true);
+      } else {
+        fillPackages($root, initType);
+        toggleForeignCurrencyFields($root, false);
+      }
+      
       fillTerms($root, initType);
       calc($root);
       updateAmountHint($root);
@@ -147,8 +202,22 @@
         updateAmountHint($root);
         calc($root);
       });
-      $root.on('change', '.msb-ic-term, .msb-ic-package', function () { calc($root); });
-      $root.on('change', '.msb-ic-type', function () { var t=$(this).val(); fillPackages($root, t); fillTerms($root, t); calc($root); });
+      
+      $root.on('change', '.msb-ic-term, .msb-ic-package, .msb-ic-currency', function () { 
+        calc($root); 
+      });
+      
+      $root.on('change', '.msb-ic-type', function () { 
+        var t = $(this).val();
+        if (t === 'foreign') {
+          toggleForeignCurrencyFields($root, true);
+        } else {
+          fillPackages($root, t);
+          toggleForeignCurrencyFields($root, false);
+        }
+        fillTerms($root, t);
+        calc($root);
+      });
     });
   });
 })(jQuery);
