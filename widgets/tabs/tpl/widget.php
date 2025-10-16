@@ -28,7 +28,7 @@
     <?php foreach ($tabs as $i => $tab):
       $tid = $tab_slugs[$i];
       $label = !empty($tab['title']) ? $tab['title'] : ('Tab '.($i+1));
-      $is_active = ($i === 0 && !$default_active) || ($default_active && $default_active === $tid);
+      $is_active = ($i === 0); // Always make first tab active by default
     ?>
       <button class="msb-tab-btn<?php echo $is_active ? ' is-active' : ''; ?>" role="tab" aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>" data-tab="<?php echo esc_attr($tid); ?>"><?php echo esc_html($label); ?></button>
     <?php endforeach; ?>
@@ -37,7 +37,7 @@
   <div class="msb-tabs-panels">
     <?php foreach ($tabs as $i => $tab):
       $tid = $tab_slugs[$i];
-      $is_active = ($i === 0 && !$default_active) || ($default_active && $default_active === $tid);
+      $is_active = ($i === 0); // Always make first panel active by default
       $hidden = $is_active ? '' : ' hidden';
     ?>
       <div class="msb-tab-panel<?php echo $is_active ? ' is-active' : ''; ?>" id="panel-<?php echo esc_attr($tid); ?>" role="tabpanel"<?php echo $hidden; ?>>
