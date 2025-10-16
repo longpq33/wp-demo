@@ -42,9 +42,12 @@ function msb_interest_calculator_widget($args, $instance) {
     echo '    <select class="msb-ic-type">';
     echo '      <option value="online">' . esc_html__('Tiền gửi có kỳ hạn trực tuyến','msb-app-theme') . '</option>';
     echo '      <option value="counter">' . esc_html__('Tiền gửi có kỳ hạn tại quầy','msb-app-theme') . '</option>';
+    echo '      <option value="foreign">' . esc_html__('Tiết kiệm ngoại tệ','msb-app-theme') . '</option>';
     echo '    </select>';
-    echo '    <label>' . esc_html__('Gói sản phẩm','msb-app-theme') . '</label>';
+    echo '    <label class="msb-ic-package-label">' . esc_html__('Gói sản phẩm','msb-app-theme') . '</label>';
     echo '    <select class="msb-ic-package"></select>';
+    echo '    <label class="msb-ic-currency-label" style="display:none;">' . esc_html__('Loại ngoại tệ','msb-app-theme') . '</label>';
+    echo '    <select class="msb-ic-currency" style="display:none;"></select>';
     echo '    <label>' . esc_html__('Kỳ hạn','msb-app-theme') . '</label>';
     echo '    <select class="msb-ic-term">';
     $terms = array('1d'=>'1 ngày','1m'=>'1 tháng','2m'=>'2 tháng','3m'=>'3 tháng','4m'=>'4 tháng','5m'=>'5 tháng','6m'=>'6 tháng','7m'=>'7 tháng','8m'=>'8 tháng','9m'=>'9 tháng','10m'=>'10 tháng','11m'=>'11 tháng','12m'=>'12 tháng','13m'=>'13 tháng','15m'=>'15 tháng','18m'=>'18 tháng','24m'=>'24 tháng','36m'=>'36 tháng');
