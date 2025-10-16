@@ -1,0 +1,65 @@
+{
+  "counter": {
+    "title": "Tiền gửi có kỳ hạn tại quầy",
+    "headers": ["Kỳ hạn", "Lãi suất cao nhất", "Rút gốc từng phần", "Định kỳ sinh lời", "Trả lãi ngay", "Ong Vàng (*)", "Măng non (*)", "Hợp đồng tiền gửi"],
+    "subheaders": ["Lãi suất rút trước hạn", "0", "", "", "", "", "", ""],
+    "rows": [
+      {"term": "01 tháng", "highest": "3.60", "partial": "3.60", "periodic": "", "pay_now": "2.70", "bee": "", "sprout": "", "contract": "3.60"},
+      {"term": "02 tháng", "highest": "3.60", "partial": "3.60", "periodic": "3.40", "pay_now": "2.70", "bee": "", "sprout": "", "contract": "3.60"},
+      {"term": "03 tháng", "highest": "3.60", "partial": "3.60", "periodic": "3.40", "pay_now": "2.90", "bee": "3.00", "sprout": "3.00", "contract": "3.60"},
+      {"term": "04 tháng", "highest": "3.60", "partial": "3.60", "periodic": "3.40", "pay_now": "2.90", "bee": "3.00", "sprout": "3.00", "contract": "3.60"},
+      {"term": "05 tháng", "highest": "3.60", "partial": "3.60", "periodic": "3.40", "pay_now": "2.90", "bee": "3.00", "sprout": "3.00", "contract": "3.60"},
+      {"term": "06 tháng", "highest": "4.70", "partial": "4.70", "periodic": "4.50", "pay_now": "3.45", "bee": "3.60", "sprout": "3.60", "contract": "4.70"},
+      {"term": "07 tháng", "highest": "4.70", "partial": "4.70", "periodic": "4.50", "pay_now": "3.45", "bee": "3.60", "sprout": "3.60", "contract": "4.70"},
+      {"term": "08 tháng", "highest": "4.70", "partial": "4.70", "periodic": "4.50", "pay_now": "3.45", "bee": "3.60", "sprout": "3.60", "contract": "4.70"},
+      {"term": "09 tháng", "highest": "4.70", "partial": "4.70", "periodic": "4.50", "pay_now": "3.45", "bee": "3.60", "sprout": "3.60", "contract": "4.70"},
+      {"term": "10 tháng", "highest": "4.70", "partial": "4.70", "periodic": "4.50", "pay_now": "3.45", "bee": "3.60", "sprout": "3.60", "contract": "4.70"},
+      {"term": "11 tháng", "highest": "4.70", "partial": "4.70", "periodic": "4.50", "pay_now": "3.45", "bee": "3.60", "sprout": "3.60", "contract": "4.70"},
+      {"term": "12 tháng (**)", "highest": "4.70", "partial": "4.70", "periodic": "5.00", "pay_now": "3.45", "bee": "4.00", "sprout": "4.00", "contract": "4.70"},
+      {"term": "13 tháng", "highest": "5.30", "partial": "5.30", "periodic": "5.00", "pay_now": "3.45", "bee": "4.00", "sprout": "4.00", "contract": "5.30"},
+      {"term": "15 tháng", "highest": "5.30", "partial": "5.30", "periodic": "5.00", "pay_now": "3.45", "bee": "4.00", "sprout": "4.00", "contract": "5.30"},
+      {"term": "18 tháng", "highest": "5.30", "partial": "5.30", "periodic": "5.00", "pay_now": "3.45", "bee": "4.00", "sprout": "4.00", "contract": "5.30"},
+      {"term": "24 tháng", "highest": "5.30", "partial": "5.30", "periodic": "5.00", "pay_now": "3.45", "bee": "4.00", "sprout": "4.00", "contract": "5.30"},
+      {"term": "36 tháng", "highest": "5.30", "partial": "5.30", "periodic": "5.00", "pay_now": "3.45", "bee": "4.00", "sprout": "4.00", "contract": "5.30"},
+      {"term": "4 năm – 15 năm", "highest": "", "partial": "", "periodic": "", "pay_now": "", "bee": "", "sprout": "4.00", "contract": ""}
+    ]
+  },
+  "online": {
+    "title": "Tiền gửi có kỳ hạn trực tuyến",
+    "headers": ["Kỳ hạn", "Lãi suất cao nhất", "Rút gốc từng phần", "Định kỳ sinh lời", "Trả lãi ngay", "Ong Vàng (*)"],
+    "subheaders": ["Lãi suất rút trước hạn", "0", "", "", "", ""],
+    "rows": [
+      {"term": "01 ngày", "highest": "0.50", "partial": "", "periodic": "", "pay_now": "", "bee": ""},
+      {"term": "01 tháng", "highest": "3.90", "partial": "3.90", "periodic": "", "pay_now": "3.15", "bee": ""},
+      {"term": "02 tháng", "highest": "3.90", "partial": "3.90", "periodic": "3.70", "pay_now": "3.15", "bee": ""},
+      {"term": "03 tháng", "highest": "3.90", "partial": "3.90", "periodic": "3.70", "pay_now": "3.15", "bee": "3.00"},
+      {"term": "04 tháng", "highest": "3.90", "partial": "3.90", "periodic": "3.70", "pay_now": "3.15", "bee": "3.00"},
+      {"term": "05 tháng", "highest": "3.90", "partial": "3.90", "periodic": "3.70", "pay_now": "3.15", "bee": "3.00"},
+      {"term": "06 tháng", "highest": "5.00", "partial": "5.00", "periodic": "4.80", "pay_now": "3.45", "bee": "3.60"},
+      {"term": "07 tháng", "highest": "5.00", "partial": "5.00", "periodic": "4.80", "pay_now": "3.45", "bee": "3.60"},
+      {"term": "08 tháng", "highest": "5.00", "partial": "5.00", "periodic": "4.80", "pay_now": "3.45", "bee": "3.60"},
+      {"term": "09 tháng", "highest": "5.00", "partial": "5.00", "periodic": "4.80", "pay_now": "3.45", "bee": "3.60"},
+      {"term": "10 tháng", "highest": "5.00", "partial": "5.00", "periodic": "4.80", "pay_now": "3.45", "bee": "3.60"},
+      {"term": "11 tháng", "highest": "5.00", "partial": "5.00", "periodic": "4.80", "pay_now": "3.45", "bee": "3.60"},
+      {"term": "12 tháng", "highest": "5.60", "partial": "5.60", "periodic": "5.30", "pay_now": "4.00", "bee": "4.00"},
+      {"term": "13 tháng", "highest": "5.60", "partial": "5.60", "periodic": "5.30", "pay_now": "4.00", "bee": "4.00"},
+      {"term": "15 tháng", "highest": "5.60", "partial": "5.60", "periodic": "5.30", "pay_now": "4.00", "bee": "4.00"},
+      {"term": "18 tháng", "highest": "5.60", "partial": "5.60", "periodic": "5.30", "pay_now": "4.00", "bee": "4.00"},
+      {"term": "24 tháng", "highest": "5.60", "partial": "5.60", "periodic": "5.30", "pay_now": "4.00", "bee": "4.00"},
+      {"term": "36 tháng", "highest": "5.60", "partial": "5.60", "periodic": "5.30", "pay_now": "4.00", "bee": "4.00"}
+    ]
+  },
+  "foreign": {
+    "title": "Tiết kiệm ngoại tệ",
+    "headers": ["Loại ngoại tệ", "AUD", "EUR", "CAD", "JPY", "GBP", "SGD", "USD"],
+    "subheaders": ["", "", "", "", "", "", "", ""],
+    "rows": [
+      {"term": "01 tháng", "aud": "0.01", "eur": "0.1", "cad": "0.01", "jpy": "0.01", "gbp": "0.01", "sgd": "0.01", "usd": "0.1"},
+      {"term": "02 tháng", "aud": "0.01", "eur": "0.1", "cad": "0.01", "jpy": "0.01", "gbp": "0.01", "sgd": "0.01", "usd": "0.1"},
+      {"term": "03 tháng", "aud": "0.01", "eur": "0.1", "cad": "0.01", "jpy": "0.01", "gbp": "0.01", "sgd": "0.01", "usd": "0.1"},
+      {"term": "06 tháng", "aud": "0.01", "eur": "0.1", "cad": "0.01", "jpy": "0.01", "gbp": "0.01", "sgd": "0.01", "usd": "0.1"},
+      {"term": "09 tháng", "aud": "0.01", "eur": "0.1", "cad": "0.01", "jpy": "0.01", "gbp": "0.01", "sgd": "0.01", "usd": "0.1"},
+      {"term": "12 tháng", "aud": "0.01", "eur": "0.1", "cad": "0.01", "jpy": "0.01", "gbp": "0.01", "sgd": "0.01", "usd": "0.1"}
+    ]
+  }
+}
