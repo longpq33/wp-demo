@@ -33,6 +33,19 @@ function msb_breadcrumbs_widget($args, $instance) {
         );
     }
     
+    // Add custom URLs from settings (user-defined)
+    if (!empty($custom_urls) && is_array($custom_urls)) {
+        foreach ($custom_urls as $custom) {
+            if (!empty($custom['url']) && !empty($custom['label'])) {
+                $breadcrumbs[] = array(
+                    'url' => esc_url($custom['url']),
+                    'title' => esc_html($custom['label']),
+                    'is_current' => false
+                );
+            }
+        }
+    }
+
     // Get current URL
     global $wp;
     $current_url = home_url(add_query_arg(array(), $wp->request));
@@ -69,43 +82,7 @@ function msb_breadcrumbs_widget($args, $instance) {
                 );
             }
         }
-        
-        // Add current post/page
-        $breadcrumbs[] = array(
-            'url' => get_permalink($post->ID),
-            'title' => msb_get_custom_breadcrumb_title(get_permalink($post->ID), get_the_title($post->ID), $custom_urls),
-            'is_current' => true
-        );
     } 
-    elseif (is_category()) {
-        $category = get_queried_object();
-        $breadcrumbs[] = array(
-            'url' => get_category_link($category->term_id),
-            'title' => msb_get_custom_breadcrumb_title(get_category_link($category->term_id), $category->name, $custom_urls),
-            'is_current' => true
-        );
-    }
-    elseif (is_archive()) {
-        $breadcrumbs[] = array(
-            'url' => '',
-            'title' => post_type_archive_title('', false),
-            'is_current' => true
-        );
-    }
-    elseif (is_search()) {
-        $breadcrumbs[] = array(
-            'url' => '',
-            'title' => 'Kết quả tìm kiếm',
-            'is_current' => true
-        );
-    }
-    elseif (is_404()) {
-        $breadcrumbs[] = array(
-            'url' => '',
-            'title' => '404',
-            'is_current' => true
-        );
-    }
     
     // Generate inline styles
     $container_style = '';

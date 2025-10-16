@@ -28,7 +28,7 @@
 .nav-links a { color: #1D4ED8; }
 
 .fixed-bottom-navbar {
-  position: fixed;
+  position: fixed !important;
   bottom: 20px;
   left: 2.5%;
   width: 95%;

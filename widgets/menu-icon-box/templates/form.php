@@ -9,6 +9,7 @@ function msb_menu_icon_box_form($instance, $widget) {
     $hover_text_color = isset($instance['hover_text_color']) ? $instance['hover_text_color'] : '#000000';
     $field_id = fn($k) => $widget->get_field_id($k);
     $field_n  = fn($k) => $widget->get_field_name($k);
+    $fixed_bottom = isset($instance['fixed_bottom']) ? $instance['fixed_bottom'] : 0;
 
     if (function_exists('wp_enqueue_media')) {
         wp_enqueue_media();
@@ -31,6 +32,11 @@ function msb_menu_icon_box_form($instance, $widget) {
             <input class="msb-color-picker" id="<?php echo esc_attr($field_id('hover_text_color')); ?>"
                 name="<?php echo esc_attr($field_n('hover_text_color')); ?>" type="text"
                 value="<?php echo esc_attr($hover_text_color); ?>" data-default-color="#000000">
+        </p>
+
+        <p>
+            <label><?php _e('Fixed bottom:', 'msb-app-theme'); ?></label>
+            <input class="widefat" type="checkbox" name="<?php echo esc_attr($field_n('fixed_bottom')); ?>" value="1">
         </p>
 
         <p><strong><?php _e('Menu Items:', 'msb-app-theme'); ?></strong></p>

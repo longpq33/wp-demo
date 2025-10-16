@@ -20,6 +20,8 @@ function msb_menu_box_widget($args, $instance) {
         ? esc_attr($instance['hover_text_color'])
         : '#ffffff';
 
+    $fixed_bottom = !empty($instance['fixed_bottom']) ? 1 : 0;
+
     if (!empty($menu_items)) {
         // Tạo unique ID cho widget này
         $unique_id = 'msb-menu-box-' . uniqid();
@@ -40,9 +42,12 @@ function msb_menu_box_widget($args, $instance) {
             #' . $unique_id . ' .msb-menu-box__link:hover .msb-menu-box__text {
                 color: ' . $hover_text_color . ' !important;
             }
+           
         </style>';
 
-        echo '<div id="' . $unique_id . '" class="msb-menu-box">';
+        $class = $fixed_bottom ? 'fixed-bottom-navbar' : '';
+
+        echo '<div id="' . $unique_id . '" class="msb-menu-box ' . $class . '">';
 
         foreach ($menu_items as $item) {
             $text = !empty($item['text']) ? esc_html($item['text']) : '';
