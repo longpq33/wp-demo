@@ -5,14 +5,7 @@
 
 if (!defined('ABSPATH')) { exit; }
 
-add_action('wp_enqueue_scripts', function() {
-    wp_enqueue_style(
-        'msb-navbar-box-style',
-        get_template_directory_uri() . '/widgets/navbar-box/navbar-box.less',
-        [],
-        filemtime(get_template_directory() . '/widgets/navbar-box/navbar-box.less')
-    );
-});
+// Style for this widget will be auto-enqueued by the theme's LESS compiler system
 
 require_once get_template_directory() . '/widgets/navbar-box/templates/widget.php';
 require_once get_template_directory() . '/widgets/navbar-box/templates/form.php';

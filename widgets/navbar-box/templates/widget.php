@@ -56,24 +56,19 @@ function msb_navbar_box_widget($args, $instance) {
     echo '<div id="' . $unique_id . '" class="msb-navbar-box">';
 
     // Hiển thị icon chính của widget (nếu có)
-    if ($icon_id) {
-        $icon_img = wp_get_attachment_image($icon_id, array($icon_size, $icon_size), false, array('class' => 'msb-widget-icon'));
-        if ($icon_img) {
-            echo '<div class="msb-widget-icon-wrapper">';
-            
-            // Kiểm tra có URL cho icon không
-            $has_icon_url = !empty($url_icon) && $url_icon !== '#';
-            
-            if ($has_icon_url) {
-                // Icon có link - wrap trong thẻ <a>
-                echo '<a href="' . $url_icon . '" class="msb-widget-icon-link">' . $icon_img . '</a>';
-            } else {
-                // Icon không có link - chỉ hiển thị icon
-                echo $icon_img;
+    if ($icon_id || $url_icon) {
+        echo '<div class="msb-widget-icon-wrapper">';
+        if ($icon_id) {
+            $icon_img = wp_get_attachment_image($icon_id, array($icon_size, $icon_size), false, array('class' => 'msb-widget-icon'));
+            if ($icon_img) {
+                $has_icon_url = !empty($url_icon) && $url_icon !== '#';
+                echo $has_icon_url ? '<a href="' . $url_icon . '" class="msb-widget-icon-link">' . $icon_img . '</a>' : $icon_img;
             }
-            
-            echo '</div>';
+        } else if ($url_icon) {
+            $img_tag = '<img src="' . esc_url($url_icon) . '" class="msb-widget-icon" alt="">';
+            echo $img_tag;
         }
+        echo '</div>';
     }
 
     // Menu items

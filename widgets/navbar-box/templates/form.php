@@ -100,7 +100,7 @@ function msb_navbar_box_form($instance, $widget) {
                 let itemIndex = <?php echo count($menu_items); ?>;
 
                 // Add item
-                $('.add-item').on('click', function(e){
+                $(document).on('click', '.add-item', function(e){
                     e.preventDefault();
                     const template = $('#tmpl-menu-item-template').html().replace(/{{index}}/g, itemIndex);
                     $wrapper.append(template);
@@ -112,35 +112,34 @@ function msb_navbar_box_form($instance, $widget) {
                     $(this).closest('.menu-item').remove();
                 });
 
-                // THÊM: JS cho media control (icon widget chính)
-                var $mediaControl = $('.msb-media-control');
-
-                // Open media frame
-                $mediaControl.on('click', '.msb-media-select', function(e) {
+                // Media control (scoped & delegated)
+                $(document).on('click', '.msb-media-control .msb-media-select', function(e){
                     e.preventDefault();
                     var $btn = $(this);
+                    var $ctrl = $btn.closest('.msb-media-control');
                     var frame = wp.media({
                         title: '<?php _e("Chọn icon", "msb-app-theme"); ?>',
                         button: { text: '<?php _e("Chọn", "msb-app-theme"); ?>' },
                         multiple: false,
-                        library: { type: 'image' }  // Chỉ chọn ảnh
+                        library: { type: 'image' }
                     });
 
-                    frame.on('select', function() {
+                    frame.on('select', function(){
                         var attachment = frame.state().get('selection').first().toJSON();
-                        $btn.siblings('.msb-media-id').val(attachment.id);
-                        $btn.siblings('.msb-media-preview').html('<img src="' + attachment.sizes.thumbnail.url + '" style="max-width:80px; height:auto;">');  // Dùng thumbnail preview
-                        $btn.siblings('.msb-media-remove').show();
+                        var imgUrl = (attachment.sizes && attachment.sizes.thumbnail) ? attachment.sizes.thumbnail.url : attachment.url;
+                        $ctrl.find('.msb-media-id').val(attachment.id);
+                        $ctrl.find('.msb-media-preview').html('<img src="'+ imgUrl +'" style="max-width:80px; height:auto;">');
+                        $ctrl.find('.msb-media-remove').show();
                     });
 
                     frame.open();
                 });
 
-                // Remove media
-                $mediaControl.on('click', '.msb-media-remove', function(e) {
+                $(document).on('click', '.msb-media-control .msb-media-remove', function(e){
                     e.preventDefault();
-                    $(this).siblings('.msb-media-id').val(0);
-                    $(this).siblings('.msb-media-preview').html('');
+                    var $ctrl = $(this).closest('.msb-media-control');
+                    $ctrl.find('.msb-media-id').val(0);
+                    $ctrl.find('.msb-media-preview').html('');
                     $(this).hide();
                 });
             });
