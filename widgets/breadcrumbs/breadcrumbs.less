@@ -14,7 +14,6 @@
     align-items: center;
     padding: 4px 8px;
     border-radius: 30px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     height: 29px;
@@ -28,15 +27,11 @@
       bottom: 0;
       background: inherit;
       filter: blur(20px);
-      transform: scale(1.1);
       opacity: 0;
-      transition: opacity 0.3s ease;
       z-index: -1;
     }
 
     &:hover {
-      transform: translateY(-1px) scale(1.05);
-
       &:before {
         opacity: 0.3;
       }
@@ -49,6 +44,10 @@
     display: inline-block;
     margin: 0;
     padding: 0;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   &__current {

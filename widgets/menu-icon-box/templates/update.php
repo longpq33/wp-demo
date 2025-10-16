@@ -9,6 +9,7 @@ function msb_menu_box_update($new_instance, $old_instance) {
     // Màu nền hover
     $inst['hover_bg_color'] = sanitize_hex_color($new_instance['hover_bg_color'] ?? '#0b2545');
     $inst['hover_text_color'] = sanitize_hex_color($new_instance['hover_text_color'] ?? '#000000');
+    $inst['fixed_bottom'] = !empty($new_instance['fixed_bottom']) ? 1 : 0;
 
     // Danh sách menu items
     $inst['menu_items'] = [];

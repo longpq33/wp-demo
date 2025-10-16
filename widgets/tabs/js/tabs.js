@@ -27,8 +27,25 @@
       else location.hash = 'tab-' + id;
     });
 
+    // Initialize: check hash first, fallback to first tab
+    var firstTabId = btns.length > 0 ? btns[0].getAttribute('data-tab') : null;
     var m = (location.hash||'').match(/#tab-([A-Za-z0-9_\-]+)/);
-    if (m) activate(m[1]);
+    
+    if (m) {
+      // Check if the tab from hash exists
+      var hashTabExists = btns.some(function(btn) {
+        return btn.getAttribute('data-tab') === m[1];
+      });
+      if (hashTabExists) {
+        activate(m[1]);
+      } else {
+        // Hash tab doesn't exist, use first tab
+        if (firstTabId) activate(firstTabId);
+      }
+    } else {
+      // No hash, use first tab
+      if (firstTabId) activate(firstTabId);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function(){
