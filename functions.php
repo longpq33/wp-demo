@@ -76,6 +76,14 @@ add_filter('siteorigin_panels_settings', function ($s) {
     return $s;
 }, 10);
 
+add_action('admin_enqueue_scripts', function() {
+    wp_add_inline_script('so-widgets-admin', "
+        jQuery(document).on('so_panels_setup', function() {
+            jQuery('.siteorigin-widget-preview-button').hide();
+        });
+    ");
+});
+
 // Load widgets custom functions
 require_once get_template_directory() . '/widgets/widgets-function.php';
 

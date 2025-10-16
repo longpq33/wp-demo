@@ -193,6 +193,4 @@ function msb_enqueue_guarantee_scripts() {
     ));
 }
 add_action('wp_enqueue_scripts', 'msb_enqueue_guarantee_scripts');
-
-
 ?>
