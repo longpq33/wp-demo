@@ -18,12 +18,22 @@ function msb_heading_widget($args, $instance) {
     $d_fs = isset($instance['desc_fs']) ? trim($instance['desc_fs']) : '';
     $d_cl = isset($instance['desc_cl']) ? trim($instance['desc_cl']) : '';
     $d_fw = isset($instance['desc_fw']) ? trim($instance['desc_fw']) : '';
+    // More button
+    $show_more_btn = isset($instance['show_more_btn']) ? $instance['show_more_btn'] : 0;
+    $more_btn_text = isset($instance['more_btn_text']) ? $instance['more_btn_text'] : 'Xem thêm';
+    $more_btn_url = isset($instance['more_btn_url']) ? $instance['more_btn_url'] : '';
 
     echo $args['before_widget'];
     $tag = 'div';
     $classes = 'msb-heading';
+    if ($show_more_btn) {
+        $classes .= ' msb-heading--with-btn';
+    }
    
     echo '<' . $tag . ' class="' . $classes . '" id="' . $heading_id . '">';
+    
+    // Header content wrapper
+    echo '<div class="msb-heading__content">';
 
     if ($title) {
         $style = '';
@@ -46,6 +56,15 @@ function msb_heading_widget($args, $instance) {
         if ($d_cl !== '') $style .= 'color:' . esc_attr($d_cl) . ';';
         if ($d_fw !== '') $style .= 'font-weight:' . esc_attr($d_fw) . ';';
         echo '<p class="msb-icon-box__description"' . ($style ? ' style="' . $style . '"' : '') . '>' . esc_html($description) . '</p>';
+    }
+    
+    echo '</div>'; // Close msb-heading__content
+    
+    // More button
+    if ($show_more_btn && $more_btn_text && $more_btn_url) {
+        echo '<div class="msb-heading__action">';
+        echo '<a href="' . esc_url($more_btn_url) . '" class="msb-heading__btn">' . esc_html($more_btn_text) . '</a>';
+        echo '</div>';
     }
 
     echo '</' . $tag . '>';

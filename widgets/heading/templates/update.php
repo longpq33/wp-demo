@@ -18,5 +18,9 @@ function msb_heading_update($new_instance, $old_instance) {
     $inst['desc_fs'] = sanitize_text_field($new_instance['desc_fs'] ?? '');
     $inst['desc_cl'] = sanitize_text_field($new_instance['desc_cl'] ?? '');
     $inst['desc_fw'] = sanitize_text_field($new_instance['desc_fw'] ?? '');
+    // More button
+    $inst['show_more_btn'] = !empty($new_instance['show_more_btn']) ? 1 : 0;
+    $inst['more_btn_text'] = sanitize_text_field($new_instance['more_btn_text'] ?? 'Xem thêm');
+    $inst['more_btn_url'] = esc_url_raw($new_instance['more_btn_url'] ?? '');
    return $inst;
 }

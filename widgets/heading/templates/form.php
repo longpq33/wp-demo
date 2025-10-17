@@ -19,6 +19,9 @@ function msb_heading_form($instance, $widget) {
     $desc_fs = isset($instance['desc_fs']) ? $instance['desc_fs'] : '';
     $desc_cl = isset($instance['desc_cl']) ? $instance['desc_cl'] : '';
     $desc_fw = isset($instance['desc_fw']) ? $instance['desc_fw'] : '';
+    $show_more_btn = isset($instance['show_more_btn']) ? $instance['show_more_btn'] : 0;
+    $more_btn_text = isset($instance['more_btn_text']) ? $instance['more_btn_text'] : 'Xem thêm';
+    $more_btn_url = isset($instance['more_btn_url']) ? $instance['more_btn_url'] : '';
     $field_id = function($k) use ($widget) { return $widget->get_field_id($k); };
     $field_n  = function($k) use ($widget) { return $widget->get_field_name($k); };
     if ( function_exists('wp_enqueue_media') ) { wp_enqueue_media(); }
@@ -39,6 +42,22 @@ function msb_heading_form($instance, $widget) {
         <label for="<?php echo esc_attr($field_id('description')); ?>"><?php _e('Nội dung:', 'msb-app-theme'); ?></label>
         <input class="widefat" id="<?php echo esc_attr($field_id('description')); ?>" name="<?php echo esc_attr($field_n('description')); ?>" type="text" value="<?php echo esc_attr($description); ?>">
     </p>
+    
+    <hr>
+    <p><strong><?php _e('Nút Xem Thêm', 'msb-app-theme'); ?></strong></p>
+    <p>
+        <input class="checkbox" type="checkbox" <?php checked($show_more_btn); ?> id="<?php echo $widget->get_field_id('show_more_btn'); ?>" name="<?php echo $widget->get_field_name('show_more_btn'); ?>" />
+        <label for="<?php echo $widget->get_field_id('show_more_btn'); ?>"><?php _e('Hiển thị nút xem thêm', 'msb-app-theme'); ?></label>
+    </p>
+    <p>
+        <label for="<?php echo esc_attr($field_id('more_btn_text')); ?>"><?php _e('Text nút:', 'msb-app-theme'); ?></label>
+        <input class="widefat" id="<?php echo esc_attr($field_id('more_btn_text')); ?>" name="<?php echo esc_attr($field_n('more_btn_text')); ?>" type="text" value="<?php echo esc_attr($more_btn_text); ?>">
+    </p>
+    <p>
+        <label for="<?php echo esc_attr($field_id('more_btn_url')); ?>"><?php _e('URL nút:', 'msb-app-theme'); ?></label>
+        <input class="widefat" id="<?php echo esc_attr($field_id('more_btn_url')); ?>" name="<?php echo esc_attr($field_n('more_btn_url')); ?>" type="url" value="<?php echo esc_attr($more_btn_url); ?>">
+    </p>
+    
     <hr>
     <p><strong><?php _e('Style - Title', 'msb-app-theme'); ?></strong></p>
     <p>

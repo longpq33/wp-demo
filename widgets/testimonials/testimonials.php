@@ -103,7 +103,12 @@ if (!class_exists('MSB_Testimonials_Widget')) {
                             <article class="msb-testimonial">
                                 <h3 class="msb-testimonial__title"><?php the_title(); ?></h3>
                                 <?php if ($user_name): ?>
-                                <div class="msb-testimonial__meta"><?php echo esc_html__('bởi ', 'msb-app-theme') . esc_html($user_name); ?></div>
+                                <div class="msb-testimonial__meta">
+                                    <span>
+                                        bởi
+                                    </span>
+                                    <?php echo esc_html($user_name); ?>
+                                </div>
                                 <?php endif; ?>
                             </article>
                         <?php endwhile; wp_reset_postdata(); ?>

@@ -19,7 +19,7 @@ class MSB_Posts_Slider_Widget extends WP_Widget {
     }
 
     public function widget($args, $instance) {
-        $title = !empty($instance['title']) ? $instance['title'] : __('Có thể bạn quan tâm', 'msb-app-theme');
+        $title = !empty($instance['title']) ? $instance['title'] : __('', 'msb-app-theme');
         $number = !empty($instance['number']) ? absint($instance['number']) : 6;
         $show_description = !empty($instance['show_description']) ? $instance['show_description'] : '';
 
