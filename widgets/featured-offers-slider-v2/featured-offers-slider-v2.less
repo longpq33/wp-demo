@@ -1,0 +1,63 @@
+// Featured Offers Slider V2 Widget Styles
+.msb-featured-products-slider {
+  .msb-cat-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    
+    .msb-cat-chip {
+      display: inline-block;
+      padding: 8px 16px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      color: #374151;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      outline: none;
+      
+      &:hover {
+        border-color: #f97316;
+        color: #f97316;
+      }
+      
+      &.is-active {
+        border-color: #f97316;
+        color: #f97316;
+
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .msb-featured-products-slider {
+    .msb-cat-filter {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      
+      .msb-cat-chip {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+    }
+    
+    .msb-slider-container {
+      .msb-slide {
+        width: 240px;
+      }
+      
+      .msb-slider-prev,
+      .msb-slider-next {
+        display: none;
+      }
+    }
+  }
+}

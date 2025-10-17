@@ -1,44 +1,52 @@
 <?php
 /**
- * Featured Offers Slider Widget Display Function
+ * Featured Offers Slider V2 Widget Display Template
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-function msb_featured_offers_slider_widget($args, $instance) {
+function msb_featured_offers_slider_v2_widget($args, $instance) {
     $number = !empty($instance['number']) ? absint($instance['number']) : 6;
     $show_description = !empty($instance['show_description']) ? $instance['show_description'] : '';
     $show_categories = !empty($instance['show_categories']) ? 1 : 0;
-    $category = !empty($instance['category']) ? absint($instance['category']) : 0; // product_cat term id
+    $category = !empty($instance['category']) ? absint($instance['category']) : 0;
 
     echo $args['before_widget'];
-    $msbfo_id = 'msb-fo-' . uniqid();
     
+    // Generate unique widget ID for AJAX
+    $widget_id = 'msb-fo-v2-' . uniqid();
+
     $q_args = array(
-        'post_type' => 'product',
+        'post_type'      => 'product',
         'posts_per_page' => $number,
-        'meta_query' => array(
+        'orderby'        => 'date',
+        'meta_query'     => array(
+            'relation' => 'AND',
             array(
-                'key' => '_msb_featured_offer',
-                'value' => 'yes',
+                'key'     => '_msb_featured_offer',
+                'value'   => 'yes',
                 'compare' => '='
-            )
+            ),
+            array(
+                'key'     => '_stock_status',
+                'value'   => 'instock',
+                'compare' => '='
+            ),
         ),
-        'meta_key' => '_stock_status',
-        'meta_value' => 'instock'
     );
     if ($category) {
         $q_args['tax_query'] = array(
             array(
-                'taxonomy' => 'product_cat',
-                'field'    => 'term_id',
-                'terms'    => array($category),
-            )
+                'taxonomy'         => 'product_cat',
+                'field'            => 'term_id',
+                'terms'            => array($category),
+                'include_children' => true,
+                'operator'         => 'IN',
+            ),
         );
     }
-
     $products = new WP_Query($q_args);
 
     if ($products->have_posts()) :
@@ -55,9 +63,9 @@ function msb_featured_offers_slider_widget($args, $instance) {
         }
         $products->rewind_posts();
         ?>
-        <div class="msb-featured-products-slider" id="<?php echo esc_attr($msbfo_id); ?>"
-             data-autoplay="<?php echo isset($autoplay) && $autoplay ? 'true' : 'false'; ?>"
-             data-autoplay-speed="<?php echo isset($autoplay_speed) ? esc_attr($autoplay_speed) : ''; ?>">
+        <div class="msb-featured-products-slider" id="<?php echo esc_attr($widget_id); ?>" 
+             data-number="<?php echo esc_attr($number); ?>"
+             data-show-description="<?php echo esc_attr($show_description); ?>">
             <?php if ($show_categories && !empty($all_terms)) : ?>
             <div class="msb-cat-filter">
                 <?php foreach ($all_terms as $term) : 
@@ -67,7 +75,7 @@ function msb_featured_offers_slider_widget($args, $instance) {
                         continue;
                     }
                 ?>
-                    <button type="button" class="msb-cat-chip" data-term="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html($term->name); ?></button>
+                    <span class="msb-cat-chip" data-term="<?php echo esc_attr($term->term_id); ?>" role="button" tabindex="0" style="cursor: pointer;"><?php echo esc_html($term->name); ?></span>
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>
@@ -132,12 +140,26 @@ function msb_featured_offers_slider_widget($args, $instance) {
         </div>
         <script>
         (function(){
-          var root = document.getElementById('<?php echo esc_js($msbfo_id); ?>');
+          var root = document.getElementById('<?php echo esc_js($widget_id); ?>');
           if (!root) return;
+          
           var activeClass = 'is-active';
+          var sliderWrapper = root.querySelector('.msb-slider-wrapper');
+          var number = parseInt(root.getAttribute('data-number')) || 6;
+          var showDescription = parseInt(root.getAttribute('data-show-description')) || 0;
+          
+          // Use event delegation with more specific targeting
           root.addEventListener('click', function(e){
-            var chip = e.target.closest('.msb-cat-chip');
-            if (!chip) return;
+            // Only handle clicks on .msb-cat-chip elements
+            if (!e.target.classList.contains('msb-cat-chip')) {
+              return;
+            }
+            
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            var chip = e.target;
             var term = chip.getAttribute('data-term');
             var chips = root.querySelectorAll('.msb-cat-chip');
             var slides = root.querySelectorAll('.msb-slide');
@@ -145,7 +167,6 @@ function msb_featured_offers_slider_widget($args, $instance) {
             // Check if clicking the same chip
             var isActive = chip.classList.contains(activeClass);
             if (isActive) {
-              // Clicking active chip -> keep it active, don't toggle
               return;
             }
             
@@ -154,14 +175,29 @@ function msb_featured_offers_slider_widget($args, $instance) {
             // Add active to clicked chip
             chip.classList.add(activeClass);
 
-            // Filter slides by term
+            // Filter slides by term (client-side filtering)
             var termId = String(term);
             slides.forEach(function(slide){
               var ids = (slide.getAttribute('data-term-ids')||'').split(',');
               var match = ids.indexOf(termId) !== -1;
               slide.style.display = match ? '' : 'none';
             });
-          });
+            try { console.log('[FO Slider V2] Filtered by term_id =', termId); } catch(err) {}
+          }, true); // Use capture phase
+          
+          // Add keyboard support for accessibility
+          root.addEventListener('keydown', function(e){
+            if (!e.target.classList.contains('msb-cat-chip')) {
+              return;
+            }
+            
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+              e.target.click();
+            }
+          }, true); // Use capture phase
         })();
         </script>
         <?php
