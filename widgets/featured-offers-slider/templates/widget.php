@@ -141,25 +141,27 @@ function msb_featured_offers_slider_widget($args, $instance) {
             var term = chip.getAttribute('data-term');
             var chips = root.querySelectorAll('.msb-cat-chip');
             var slides = root.querySelectorAll('.msb-slide');
-            // Toggle active state
+            
+            // Check if clicking the same chip
             var isActive = chip.classList.contains(activeClass);
-            chips.forEach(function(c){ c.classList.remove(activeClass); });
-            if (!isActive) chip.classList.add(activeClass);
-
-            // Filter slides: if no active chip -> show all
-            var activeChip = root.querySelector('.msb-cat-chip.'+activeClass);
-            if (!activeChip) {
-              slides.forEach(function(s){ s.style.display = ''; });
-              try { console.log('[FO Slider] Clear filter, show all'); } catch(err) {}
+            if (isActive) {
+              // Clicking active chip -> keep it active, don't toggle
               return;
             }
+            
+            // Remove active from all chips
+            chips.forEach(function(c){ c.classList.remove(activeClass); });
+            // Add active to clicked chip
+            chip.classList.add(activeClass);
 
+            // Filter slides by term
             var termId = String(term);
             slides.forEach(function(slide){
               var ids = (slide.getAttribute('data-term-ids')||'').split(',');
               var match = ids.indexOf(termId) !== -1;
               slide.style.display = match ? '' : 'none';
             });
+            try { console.log('[FO Slider] Apply filter term_id =', termId); } catch(err) {}
           });
         })();
         </script>
