@@ -14,6 +14,7 @@ function msb_featured_offers_slider_widget($args, $instance) {
     $category = !empty($instance['category']) ? absint($instance['category']) : 0; // product_cat term id
 
     echo $args['before_widget'];
+    $msbfo_id = 'msb-fo-' . uniqid();
     
     $q_args = array(
         'post_type' => 'product',
@@ -37,6 +38,7 @@ function msb_featured_offers_slider_widget($args, $instance) {
             )
         );
     }
+
     $products = new WP_Query($q_args);
 
     if ($products->have_posts()) :
@@ -53,9 +55,9 @@ function msb_featured_offers_slider_widget($args, $instance) {
         }
         $products->rewind_posts();
         ?>
-        <div class="msb-featured-products-slider" 
-             data-autoplay="<?php echo $autoplay ? 'true' : 'false'; ?>"
-             data-autoplay-speed="<?php echo $autoplay_speed; ?>">
+        <div class="msb-featured-products-slider" id="<?php echo esc_attr($msbfo_id); ?>"
+             data-autoplay="<?php echo isset($autoplay) && $autoplay ? 'true' : 'false'; ?>"
+             data-autoplay-speed="<?php echo isset($autoplay_speed) ? esc_attr($autoplay_speed) : ''; ?>">
             <?php if ($show_categories && !empty($all_terms)) : ?>
             <div class="msb-cat-filter">
                 <?php foreach ($all_terms as $term) : 
@@ -128,6 +130,39 @@ function msb_featured_offers_slider_widget($args, $instance) {
                 </button>
             </div>
         </div>
+        <script>
+        (function(){
+          var root = document.getElementById('<?php echo esc_js($msbfo_id); ?>');
+          if (!root) return;
+          var activeClass = 'is-active';
+          root.addEventListener('click', function(e){
+            var chip = e.target.closest('.msb-cat-chip');
+            if (!chip) return;
+            var term = chip.getAttribute('data-term');
+            var chips = root.querySelectorAll('.msb-cat-chip');
+            var slides = root.querySelectorAll('.msb-slide');
+            // Toggle active state
+            var isActive = chip.classList.contains(activeClass);
+            chips.forEach(function(c){ c.classList.remove(activeClass); });
+            if (!isActive) chip.classList.add(activeClass);
+
+            // Filter slides: if no active chip -> show all
+            var activeChip = root.querySelector('.msb-cat-chip.'+activeClass);
+            if (!activeChip) {
+              slides.forEach(function(s){ s.style.display = ''; });
+              try { console.log('[FO Slider] Clear filter, show all'); } catch(err) {}
+              return;
+            }
+
+            var termId = String(term);
+            slides.forEach(function(slide){
+              var ids = (slide.getAttribute('data-term-ids')||'').split(',');
+              var match = ids.indexOf(termId) !== -1;
+              slide.style.display = match ? '' : 'none';
+            });
+          });
+        })();
+        </script>
         <?php
     else :
         echo '<p class="msb-no-products">' . __('Không có sản phẩm nổi bật nào.', 'msb-app-theme') . '</p>';
