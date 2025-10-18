@@ -196,4 +196,20 @@ function msb_enqueue_guarantee_scripts() {
     ));
 }
 add_action('wp_enqueue_scripts', 'msb_enqueue_guarantee_scripts');
+
+
+add_action('admin_enqueue_scripts', function ($hook) {
+    if (!in_array($hook, ['widgets.php', 'post.php', 'post-new.php'], true)) return;
+  
+    $css_path = get_template_directory() . '/assets/css/widgets/menu-select-box.css';
+    if (!file_exists($css_path)) return;
+  
+    wp_enqueue_style(
+      'msb-menu-select-box-admin',
+      get_template_directory_uri() . '/assets/css/widgets/menu-select-box.css',
+      [],
+      filemtime($css_path)
+    );
+  
+  });
 ?>

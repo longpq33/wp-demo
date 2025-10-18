@@ -3,17 +3,47 @@
 .msb-menu-select-box {
   position: relative;
   width: 100%;
+  
+
+  .msb-dropdown-trigger-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: max-content;
+    background: #dfe5ef;
+    border-radius: 30px;
+
+    /* Dropdown Trigger */
+    .msb-dropdown-trigger {
+      position: relative;
+      width: fit-content;
+    }
+
+    .msb-msb-tabs {
+      padding: 0 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+
+      .msb-msb-tab-link {
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .msb-msb-tab-link:hover {
+        color: #ff4d00;
+      }
+    }
+  }
 }
 
-/* Dropdown Trigger */
-.msb-dropdown-trigger {
-  position: relative;
-  width: 100%;
-}
 
 .msb-dropdown-input {
   width: 100%;
-  padding: 8px 40px 8px 16px;
+  padding: 5px 40px 5px 16px;
   border: 1px solid #ff4d00;
   color: #ff4d00;
   border-radius: 30px;
@@ -45,12 +75,12 @@
 }
 
 .msb-chevron-down svg {
-width: 14px;
-height: 14px;
-color: #ff4d00;
-stroke: #ff4d00;
-fill: #ff4d00;
-margin-top: 5px;
+  width: 14px;
+  height: 14px;
+  color: #ff4d00;
+  stroke: #ff4d00;
+  fill: #ff4d00;
+  margin-top: 5px;
 }
 
 /* Modal Overlay */
@@ -176,10 +206,6 @@ margin-top: 5px;
   transition: background-color 0.3s ease;
 }
 
-.msb-menu-item:hover .msb-menu-icon {
-  /* background: #e3f2fd; */
-}
-
 .msb-icon {
   font-size: 24px;
   line-height: 1;
@@ -243,7 +269,12 @@ margin-top: 5px;
   font-size: 14px;
 }
 
+.msb-add-item {
+  margin-top: 20px;
+}
+
 .msb-add-item,
+.msb-add-tab,
 .msb-remove-item {
   background: #007cba;
   color: white;
@@ -299,6 +330,62 @@ margin-top: 5px;
       font-size: 12px;
   }
 }
+
+.msb-menu-select-box-container {
+  .msb-menu-select-box-form {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+
+}
+
+.msb-tabs-admin {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+
+  .msb-tabs-container {
+    margin-bottom: 20px;
+    .msb-tab-row {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .msb-remove-tab {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 0 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #c82333;
+      }
+    }
+  
+    .msb-add-tab {
+      margin-top: 20px;
+    }
+  }
+
+
+}
+
+
+
 
 @media (max-width: 480px) {
   .msb-menu-grid {

@@ -9,29 +9,26 @@
 .lang-select-wrapper {
 	display: flex;
 	align-items: center;
-	gap: 6px;
+	gap: 8px;
 	background: transparent;
 	// border: 1px solid #ccc;
 	// border-radius: 8px;
-	padding: 4px 10px;
+	padding: 6px 12px;
 	cursor: pointer;
 	transition: 0.2s;
 
-	&:hover {
-		background: @hover-bg;
-	}
-
 	img {
-		width: 20px;
-		height: 15px;
+		width: 32px;
+		height: 22px;
 		object-fit: cover;
-		border-radius: 2px;
+		border-radius: 6px; // rounded corners like screenshot
+		box-shadow: 0 0 0 1px rgba(0,0,0,0.06) inset;
 	}
 
 	select {
 		border: none;
 		background: transparent;
-		font-size: 14px;
+		font-size: 0; // hide text width, show only chevron
 		outline: none;
 		appearance: none;
 		cursor: pointer;
@@ -39,9 +36,13 @@
 	}
 
 	&::after {
-		content: "▼";
-		font-size: 11px;
-		color: @text;
+		content: '';
+		width: 18px;
+		height: 18px;
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 16px 16px;
 		position: absolute;
 		right: 8px;
 		pointer-events: none;
